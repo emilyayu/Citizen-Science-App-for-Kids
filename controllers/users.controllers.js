@@ -4,17 +4,16 @@
 
 const pool = require("../config");
 
-//QUERIES
+//USER QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
 const create_user = 'INSERT INTO users (first_name, last_name, email, teacher) VALUES ?'
 const read_users = 'SELECT * FROM users'
-const read_user = ''
-const update_user = ''
-const delete_user = ''
+const read_user = 'SELECT * From users WHERE id = ?'
+const update_user = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, teacher = ? WHERE id = ?'
+const delete_user = 'DELETE FROM users WHERE id = ?'
 
 // CREATE
 function createUser(req, next){
-
     //generate list of values for query
     const user = Object.values(req.body)
     console.log(user)
@@ -31,21 +30,49 @@ function createUser(req, next){
 
 
 // READ ALL
-function readUsers(){
-
+function readUsers(next){
+    // list all users from database
+    // pool.query(read_users, (error, results, fields) =>{
+    //     //if error pass to callback function
+    //     if (error){
+    //         next(error)
+    //     }
+    // })
 }
 
 // READ ONE
-function readUser(){
-
+function readUser(req, next){
+    console.log(req.params)
+    // read a user from database
+    // pool.query(read_user, user, (error, results, fields) =>{
+    //     //if error pass to callback function
+    //     if (error){
+    //         next(error)
+    //     }
+    // })
 }
+
 // UPDATE
-function updateUser(){
-    
+function updateUser(req, next){
+    console.log(req.params)
+    //insert new user into database
+    // pool.query(update_user, user, (error, results, fields) =>{
+    //     //if error pass to callback function
+    //     if (error){
+    //         next(error)
+    //     }
+    // })
 }
 // DELETE
-function deleteUser(){
-    
+function deleteUser(req, next){
+    console.log(req.params)
+    // read a user from database
+    // pool.query(delete_user, user, (error, results, fields) =>{
+    //     //if error pass to callback function
+    //     if (error){
+    //         next(error)
+    //     }
+    // })
 }
 
 //EXPORT FUNCTIONS
