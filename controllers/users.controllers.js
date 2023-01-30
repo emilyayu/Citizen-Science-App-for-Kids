@@ -1,78 +1,99 @@
-//Description: 
 
 //https://github.com/mysqljs/mysql
 
-const pool = require("../config");
+const pool = require("../connection");
 
 //USER QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
-const create_user = 'INSERT INTO users (first_name, last_name, email, teacher) VALUES ?'
-const read_users = 'SELECT * FROM users'
-const read_user = 'SELECT * From users WHERE id = ?'
-const update_user = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, teacher = ? WHERE id = ?'
-const delete_user = 'DELETE FROM users WHERE id = ?'
+const create_user = 'INSERT INTO Users (FirstName, LastName, Email, IsTeacher) VALUES (?, ?, ?, ?)'
+const read_users = 'SELECT * FROM Users'
+const read_user = 'SELECT * FROM Users WHERE IDUsers = ?'
+const update_user = 'UPDATE Users SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDUsers = ?'
+const delete_user = 'DELETE FROM Users WHERE IDUsers = ?'
 
 // CREATE
 function createUser(req, next){
     //generate list of values for query
     const user = Object.values(req.body)
-    console.log(user)
 
-    //insert new user into database
-    // pool.query(create_user, user, (error, results, fields) =>{
-    //     //if error pass to callback function
-    //     if (error){
-    //         next(error)
-    //     }
-    // })
+    // insert new user into database
+    pool.query(create_user, user, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+        const user_id = {user_id: results.insertId}
+        next(null, user_id)
+    })
 
+    return
 }
 
 
 // READ ALL
 function readUsers(next){
     // list all users from database
-    // pool.query(read_users, (error, results, fields) =>{
-    //     //if error pass to callback function
-    //     if (error){
-    //         next(error)
-    //     }
-    // })
+    pool.query(read_users, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+        next(null, results)
+    })
+
+    return
 }
 
 // READ ONE
 function readUser(req, next){
-    console.log(req.params)
+    const user_id = [req.params.id]
+
     // read a user from database
-    // pool.query(read_user, user, (error, results, fields) =>{
-    //     //if error pass to callback function
-    //     if (error){
-    //         next(error)
-    //     }
-    // })
+    pool.query(read_user, user_id, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+        next(null, results)
+    })
+
+    return
 }
 
 // UPDATE
 function updateUser(req, next){
-    console.log(req.params)
+
+    //generate list of values with user_id
+    const upd_user = Object.values(req.body)
+    upd_user.push(req.params.id)
+
     //insert new user into database
-    // pool.query(update_user, user, (error, results, fields) =>{
-    //     //if error pass to callback function
-    //     if (error){
-    //         next(error)
-    //     }
-    // })
+    pool.query(update_user, upd_user, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+
+        next(null, results)
+    })
+
+    return
 }
 // DELETE
 function deleteUser(req, next){
-    console.log(req.params)
+    //user id in list for query
+    const user_id = [req.params.id]
+
     // read a user from database
-    // pool.query(delete_user, user, (error, results, fields) =>{
-    //     //if error pass to callback function
-    //     if (error){
-    //         next(error)
-    //     }
-    // })
+    pool.query(delete_user, user_id, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+        next(null, results)
+    })
+
+    return
 }
 
 //EXPORT FUNCTIONS
