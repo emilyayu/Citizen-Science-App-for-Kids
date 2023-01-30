@@ -11,30 +11,57 @@ const user_ctrl = require('../controllers/users.controllers')
 
 //CREATE
 router.post('/', (req, res, next) => {
-    user_ctrl.createUser(req, next)
-    res.status(201).end()
+    user_ctrl.createUser(req, (error, results)=>{
+        if(error){
+            next(error)
+            return
+        }
+        res.json(results)
+    })
 })
 
 //READ ALL 
 router.get('/', (req, res, next) => {
-    user_ctrl.readUsers(next)
-    res.status(200).send("USERS DATA")
+    user_ctrl.readUsers((error, results)=>{
+        if(error){
+            next(error)
+            return
+        }
+        res.json(results)
+    })
 })
 
 //READ ONE
 router.get('/:id', (req, res, next) => {
-    user_ctrl.readUser(req, next)
-    res.status(200).send("USER DATA")
+    user_ctrl.readUser(req, (error, results)=>{
+        if(error){
+            next(error)
+            return
+        }
+        res.json(results)
+    })
 })
 
 //UPDATE
 router.put('/:id', (req, res, next) => {
-    user_ctrl.updateUser(req, next)
+    user_ctrl.updateUser(req, (error, results)=>{
+        if(error){
+            next(error)
+            return
+        }
+        res.sendStatus(200)
+    })
 })
 
 //DELETE
 router.delete('/:id', (req, res, next) => {
-    user_ctrl.deleteUser(req, next)
+    user_ctrl.deleteUser(req, (error, results)=>{
+        if(error){
+            next(error)
+            return
+        }
+        res.sendStatus(204)
+    })
 })
 
 
