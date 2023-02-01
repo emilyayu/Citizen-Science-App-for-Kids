@@ -5,10 +5,10 @@ const pool = require("../connection");
 
 //Project QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
-const create_project = 'INSERT INTO Projects (FirstName, LastName, Email, IsTeacher) VALUES (?, ?, ?, ?)'
+const create_project = 'INSERT INTO Projects (ProjectName, ProjectType, ProjectDescription, ProjectImage, AccessCode) VALUES (?, ?, ?, ?)'
 const read_projects = 'SELECT * FROM Projects'
 const read_project = 'SELECT * FROM Projects WHERE IDProjects = ?'
-const update_project = 'UPDATE Projects SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDProjects = ?'
+const update_project = 'UPDATE Projects SET ProjectName= ?, ProjectType = ?, ProjectDescription = ?, ProjectImage = ?, AccessCode = ? WHERE IDProjects = ?'
 const delete_project = 'DELETE FROM Projects WHERE IDProjects = ?'
 
 // CREATE
