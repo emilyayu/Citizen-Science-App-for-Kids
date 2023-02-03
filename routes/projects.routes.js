@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
             next(error)
             return
         }
-        res.json(results)
+        res.status(201).json(results)
     })
 })
 
