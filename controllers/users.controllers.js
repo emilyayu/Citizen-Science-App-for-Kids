@@ -73,7 +73,6 @@ function updateUser(req, next){
         if (error){
             next(error)
         }
-
         next(null, results)
     })
 

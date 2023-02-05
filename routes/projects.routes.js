@@ -31,7 +31,7 @@ router.get('/', (req, res, next) => {
             next(error)
             return
         }
-        res.json(results)
+        res.status(200).json(results)
     })
 })
 
@@ -44,7 +44,7 @@ router.get('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.json(results)
+        res.status(200).json(results)
     })
 })
 
@@ -57,7 +57,7 @@ router.put('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.sendStatus(200)
+        res.status(200).json(results)
     })
 })
 
@@ -70,7 +70,8 @@ router.delete('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.sendStatus(204)
+        // res.status(204).json(results)
+        res.status(200).json(results)
     })
 })
 
