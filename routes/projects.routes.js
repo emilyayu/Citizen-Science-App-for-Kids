@@ -13,10 +13,12 @@ const projects_ctrl = require('../controllers/projects.controllers')
 router.post('/', (req, res, next) => {
     projects_ctrl.createProject(req, (error, results)=>{
         if(error){
+            res.status(400).send('create projects error')
+            console.log(error)
             next(error)
             return
         }
-        res.json(results)
+        res.status(201).json(results)
     })
 })
 
@@ -24,6 +26,8 @@ router.post('/', (req, res, next) => {
 router.get('/', (req, res, next) => {
     projects_ctrl.readProjects((error, results)=>{
         if(error){
+            res.status(400).send('get all projects error')
+            console.log(error)
             next(error)
             return
         }
@@ -35,6 +39,8 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
     projects_ctrl.readProject(req, (error, results)=>{
         if(error){
+            res.status(400).send('get one projects error')
+            console.log(error)
             next(error)
             return
         }
@@ -46,6 +52,8 @@ router.get('/:id', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
     projects_ctrl.updateProject(req, (error, results)=>{
         if(error){
+            res.status(400).send('update projects error')
+            console.log(error)
             next(error)
             return
         }
@@ -57,6 +65,8 @@ router.put('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     projects_ctrl.deleteProject(req, (error, results)=>{
         if(error){
+            res.status(400).send('delete projects error')
+            console.log(error)
             next(error)
             return
         }
