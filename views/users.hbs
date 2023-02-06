@@ -6,7 +6,7 @@ Uses as a model the example from CS340 Canvas Modules
 <html>
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./js/delete_author.js"></script>
+<script src="./routes/users.routes.js"></script>
 
 <title>Students</title>
 </head>
@@ -19,9 +19,9 @@ Uses as a model the example from CS340 Canvas Modules
  
     {{!-- <!-- VIEW, UPDATE, DELETE, CREATE-->
     <!-- view -->
-    <div id="overviewAuthors" style="display: block">
-      <h2>Overview Authors</h2>
-    <table id = "author-table">
+    <div id="overviewUsers" style="display: block">
+      <h2>Student Information</h2>
+    <table id = "user-table">
     <thead>
         <tr>
             {{#each data.[0]}}
@@ -35,7 +35,7 @@ Uses as a model the example from CS340 Canvas Modules
     <tbody>
         {{#each data}}
         <tr data-value={{this.id}}>>
-            <td>{{this.IDAuthor}}</td>
+            <td>{{this.IDUser}}</td>
             <td>{{this.AuthorFirstName}}</td>
             <td>{{this.AuthorLastName}}</td>
             <td><button onclick="deleteAuthor({{this.IDAuthor}})">Delete</button></td>
