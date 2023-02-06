@@ -22,8 +22,8 @@ function createUser(req, next){
         if (error){
             next(error)
         }
-        const IDUser = {IDUser: results.insertId}
-        next(null, IDUser)
+        // const IDUser = {IDUser: results.insertId}
+        next(null, results)
     })
 
     return
@@ -73,7 +73,6 @@ function updateUser(req, next){
         if (error){
             next(error)
         }
-
         next(null, results)
     })
 
