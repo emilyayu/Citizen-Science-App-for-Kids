@@ -11,24 +11,47 @@ const read_user = 'SELECT * FROM Users WHERE IDUser = ?'
 const update_user = 'UPDATE Users SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDUser = ?'
 const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
 
+class InvalidEmail extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "InvalidEmail";
+    }
+}
+
 // CREATE
 function createUser(req, next){
     //generate list of values for query
-    const user = Object.values(req.body)
+    const email = req.body.Email
+    validEmail = ValidateEmail(email)
+    
+    if (validEmail) {
+        const user = Object.values(req.body)
+        // insert new user into database
+        pool.query(create_user, user, (error, results, fields) =>{
+            //if error pass to callback function
+            if (error){
+                next(error)
+            }
+            // const IDUser = {IDUser: results.insertId}
+            next(null, results)
+        })
 
-    // insert new user into database
-    pool.query(create_user, user, (error, results, fields) =>{
-        //if error pass to callback function
-        if (error){
-            next(error)
-        }
-        // const IDUser = {IDUser: results.insertId}
-        next(null, results)
-    })
-
+        return
+    }
+    
+    throw new InvalidEmail("invalid email format")
     return
 }
 
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    console.log("You have entered an invalid email address!")
+    return (false)
+}
 
 // READ ALL
 function readUsers(next){
