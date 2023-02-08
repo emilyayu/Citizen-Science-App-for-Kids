@@ -2,6 +2,8 @@
 //https://github.com/mysqljs/mysql
 
 const pool = require("../connection");
+const err = require("../error_helper")
+const helper = require("../helper")
 
 //USER QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
@@ -11,48 +13,27 @@ const read_user = 'SELECT * FROM Users WHERE IDUser = ?'
 const update_user = 'UPDATE Users SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDUser = ?'
 const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
 
-class InvalidRequest extends Error {
-    constructor(message) {
-        super(message);
-        this.name = this.constructor.name;
-    }
-}
-
-class ValidationError extends InvalidRequest { }
-
-class PropertyRequiredError extends ValidationError {
-    constructor(property) {
-        super("Missing Property: " + property);
-        this.property = property
-    }
-}
-
-class InvalidEmail extends ValidationError {
-    constructor(email) {
-        super(email + " not a vaild email");
-    }
-}
 // CREATE
 function createUser(req, next){
     //generate list of values for query
     const email = req.body.Email
 
     if (!("FirstName" in req.body) || (req.body.FirstName === "")) {
-        throw new PropertyRequiredError("FirstName")
+        throw new err.PropertyRequiredError("FirstName")
     }
 
     if (!("LastName" in req.body) || (req.body.LastName === "")) {
-        throw new PropertyRequiredError("LastName")
+        throw new err.PropertyRequiredError("LastName")
     }
 
     if (!("Email" in req.body) || (req.body.Email === "")) {
-        throw new PropertyRequiredError("Email")
+        throw new err.PropertyRequiredError("Email")
     }
 
-    validEmail = ValidateEmail(email)
+    validEmail = helper.ValidateEmail(email)
     
     if (!validEmail) {
-        throw new InvalidEmail(email)
+        throw new err.InvalidEmail(email)
     }
 
     const user = Object.values(req.body)
@@ -67,16 +48,6 @@ function createUser(req, next){
     })
 
     return   
-}
-
-function ValidateEmail(mail) 
-{
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-  {
-    return (true)
-  }
-    console.log("You have entered an invalid email address!")
-    return (false)
 }
 
 // READ ALL
