@@ -9,6 +9,8 @@ router.use(bodyParser.json())
 
 const user_ctrl = require('../controllers/users.controllers')
 
+
+
 //CREATE
 router.post('/', (req, res, next) => {
     user_ctrl.createUser(req, (error, results)=>{

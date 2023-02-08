@@ -28,8 +28,8 @@ function createProject(req, next){
         if (error){
             next(error)
         }
-        // IDProjects = {project_id: results.insertId}
-        next(null, results)
+        IDProjects = {project_id: results.insertId}
+        next(null, IDProjects)
     })
 
     return
