@@ -11,36 +11,62 @@ const read_user = 'SELECT * FROM Users WHERE IDUser = ?'
 const update_user = 'UPDATE Users SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDUser = ?'
 const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
 
-class InvalidEmail extends Error {
+class InvalidRequest extends Error {
     constructor(message) {
         super(message);
-        this.name = "InvalidEmail";
+        this.name = this.constructor.name;
     }
 }
 
+class ValidationError extends InvalidRequest { }
+
+class PropertyRequiredError extends ValidationError {
+    constructor(property) {
+        super("Missing Property: " + property);
+        this.property = property
+    }
+}
+
+class InvalidEmail extends ValidationError {
+    constructor(email) {
+        super(email + " not a vaild email");
+    }
+}
 // CREATE
 function createUser(req, next){
     //generate list of values for query
     const email = req.body.Email
+
+    if (!("FirstName" in req.body) || (req.body.FirstName === "")) {
+        throw new PropertyRequiredError("FirstName")
+    }
+
+    if (!("LastName" in req.body) || (req.body.LastName === "")) {
+        throw new PropertyRequiredError("LastName")
+    }
+
+    if (!("Email" in req.body) || (req.body.Email === "")) {
+        throw new PropertyRequiredError("Email")
+    }
+
     validEmail = ValidateEmail(email)
     
-    if (validEmail) {
-        const user = Object.values(req.body)
-        // insert new user into database
-        pool.query(create_user, user, (error, results, fields) =>{
-            //if error pass to callback function
-            if (error){
-                next(error)
-            }
-            // const IDUser = {IDUser: results.insertId}
-            next(null, results)
-        })
-
-        return
+    if (!validEmail) {
+        throw new InvalidEmail(email)
     }
-    
-    throw new InvalidEmail("invalid email format")
-    return
+
+    const user = Object.values(req.body)
+    // insert new user into database
+    pool.query(create_user, user, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+        // const IDUser = {IDUser: results.insertId}
+        next(null, results)
+    })
+
+    return   
 }
 
 function ValidateEmail(mail) 
