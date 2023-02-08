@@ -26,12 +26,16 @@ app.get('/', (req, res) => {
 });
 
 // Users Page
-app.get('/users', (req, res) => {
-  res.render('users');
-});
+app.use('/users', users)
+// app.get('/users', (req, res)=> {
+//   res.render('users');
+// });
+
 
 // Projects Page
 app.get('/projects', (req, res) => {
+  app.use('/projects', projects)
+
   res.render('projects');
 });
 
