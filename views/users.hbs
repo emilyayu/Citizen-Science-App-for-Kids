@@ -6,12 +6,11 @@ Uses as a model the example from CS340 Canvas Modules
 <html>
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./routes/users.routes.js"></script>
-
+<script src="./js/delete_user.js"></script>
 <title>Students</title>
 </head>
 
-<h1>Students</h1>
+<h1>Student Information</h1>
   <p>
     View, add, update or delete students.
 
@@ -29,16 +28,16 @@ Uses as a model the example from CS340 Canvas Modules
             <th>Delete</th>
         </tr>
     </thead>
-    
+
     <tbody>
         {{#each userData}}
-        <tr data-value={{this.id}}>>
+        <tr data-value={{this.id}}>
             <td>{{this.IDUser}}</td>
             <td>{{this.FirstName}}</td>
             <td>{{this.LastName}}</td>
             <td>{{this.Email}}</td>
 
-            <td><button onclick="deleteuserJS({{this.IDUser}})">Delete</button></td>
+            <td><button onclick="deleteUserJS({{this.IDUser}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
