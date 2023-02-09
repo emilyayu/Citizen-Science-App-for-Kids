@@ -20,9 +20,16 @@ class InvalidEmail extends ValidationError {
     }
 }
 
+class TypeError extends ValidationError {
+    constructor(type) {
+        super("invalid type: " + type + "required")
+    }
+}
+
 module.exports =
 {
     InvalidEmail,
     PropertyRequiredError,
-    ValidationError
+    ValidationError,
+    TypeError
 }

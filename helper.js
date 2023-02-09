@@ -8,15 +8,24 @@ function getAccessCode(){
 
 function ValidateEmail(mail) 
 {
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-  {
-    return (true)
-  }
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+    {
+        return (true)
+    }
+    return (false)
+}
+
+function IsString(str){
+    if (typeof str === 'string' || str instanceof String)
+    {
+        return (true)
+    }
     return (false)
 }
 
 module.exports = 
 {
     getAccessCode,
-    ValidateEmail
+    ValidateEmail,
+    IsString
 }

@@ -30,6 +30,18 @@ function createUser(req, next){
         throw new err.PropertyRequiredError("Email")
     }
 
+    if (!(helper.IsString(req.body.FirstName))) {
+        throw new err.TypeError("string")
+    }
+
+    if (!(helper.IsString(req.body.LastName))) {
+        throw new err.TypeError("string")
+    }
+
+    if (!(helper.IsString(req.body.Email))) {
+        throw new err.TypeError("string")
+    }
+
     validEmail = helper.ValidateEmail(email)
     
     if (!validEmail) {
@@ -113,6 +125,13 @@ function deleteUser(req, next){
     })
 
     return
+}
+
+function User(firstName, lastName, email, isTeacher) {
+    this.FirstName = firstName,
+    this.LastName = lastName,
+    this.Email = email,
+    this.IsTeacher = isTeacher
 }
 
 //EXPORT FUNCTIONS
