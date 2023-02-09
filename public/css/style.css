@@ -2,25 +2,49 @@
 Help designing nav bar from:
 https://www.youtube.com/watch?v=FEmysQARWFU
 */
-
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding:0;
+}
 body{
   font-family: "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif; 
   
   background-color: white;
   color: #4b5668;
-  margin: 10mm;
-  padding: 3px;
+  margin: 0;
+  padding: 100px;
   text-align: center;
-  border: #4b5668;
   /* outline */
   margin: auto;
   width: device-width;
+}
+/* li,a,button{
+  font-family: "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif; 
+  color: white;
+  font-size: 16px;
+} */
 
-  /* border: 3px solid green; */
-  padding: 10px;
-  border-color: #4b5668;
 
+header {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 10%;
+  align-items: center;
+  box-shadow: 0 0 25px 0 black;
+}
 
+.logo {
+  height: auto;
+  width: auto;
+  max-height: 100px;
+  max-width: 250px;
 }
 
 /* Navigaition Bar */
@@ -30,9 +54,51 @@ body{
   background-color: #333;
 }
 
+.logo{
+  cursor: pointer;
+}
+
+.nav_links{
+  list-style: none;
+}
+.nav_links li{
+  display: inline-block;
+  padding: 0px 20px;
+}
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+}
+.nav_links li a:hover {
+  color:#0088a9;
+}
+
+.login button{
+  padding: 9px 25px;
+  background-color: rgba(0,136,169,1);
+  border:none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.login button:hover {
+  background-color: rgba(0,136,169,.8);
+}
+
+.logout button{
+  padding: 9px 25px;
+  background-color: gray;
+  border:none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.logout button:hover {
+  background-color:rgb(156, 154, 154);
+}
+
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -51,17 +117,6 @@ body{
 
 
 
-header {
-  background-color: rgb(86, 32, 156);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 0 25px 0 black;
-}
 
 header * {
   display: inline;
