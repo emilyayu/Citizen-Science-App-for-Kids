@@ -15,7 +15,6 @@ const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
 function createUser(req, next){
     //generate list of values for query
     const user = Object.values(req.body)
-
     // insert new user into database
     pool.query(create_user, user, (error, results, fields) =>{
         //if error pass to callback function
@@ -47,7 +46,6 @@ function readUsers(next){
 // READ ONE
 function readUser(req, next){
     const user_id = [req.params.id]
-
     // read a user from database
     pool.query(read_user, user_id, (error, results, fields) =>{
         //if error pass to callback function
@@ -62,9 +60,9 @@ function readUser(req, next){
 
 // UPDATE
 function updateUser(req, next){
-
     //generate list of values with user_id
     const upd_user = Object.values(req.body)
+    console.log("Controller",upd_user)
     upd_user.push(req.params.id)
 
     //insert new user into database
@@ -73,6 +71,7 @@ function updateUser(req, next){
         if (error){
             next(error)
         }
+        
         next(null, results)
     })
 

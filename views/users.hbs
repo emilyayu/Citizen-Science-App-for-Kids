@@ -6,7 +6,7 @@ Uses as a model the example from CS340 Canvas Modules
 <html>
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./js/delete_user.js"></script>
+<script src="./js/user_helper.js"></script>
 <title>Students</title>
 </head>
 
@@ -26,66 +26,83 @@ Uses as a model the example from CS340 Canvas Modules
             <th>Last Name</th>
             <th>Email</th>
             <th>Delete</th>
+            <th>Edit</th>
+
         </tr>
     </thead>
 
     <tbody>
         {{#each userData}}
-        <tr data-value={{this.id}}>
+        <tr data-value={{this.IDUser}}>
             <td>{{this.IDUser}}</td>
             <td>{{this.FirstName}}</td>
             <td>{{this.LastName}}</td>
             <td>{{this.Email}}</td>
 
             <td><button onclick="deleteUserJS({{this.IDUser}})">Delete</button></td>
+            {{!-- <a href="/users/{{this.IDUser}}" type="button"><i class="bi bi-pencil"></i>
+          Edit</a> --}}
+            <td><button onclick= "getUserJS({{this.IDUser}})">Edit {{this.IDUser}}</button></td>
+
         </tr>
         {{/each}}
     </tbody>
     </table>
        
     <p>&nbsp;</p>
-    </div> 
-{{!--     
-  <!-- Add a new Author to the Database -->
-  <h2>Add Author</h2>
-  <p>To add a new author to the database, please enter their information below.</p>
-  <form method="POST" id="addAuthor" action="/add-author-form">
+  <!-- Add a new Student to the Database -->
+  <legend><strong>Add Student</strong></legend>
+  <form action="/users" method="POST" id = "add-student">
       <fieldset class="fields">
           <p></p>
-          <label for="input-AuthorFirstName"> First Name </label> 
-          <input type="text" name="input-AuthorFirstName" id="input-AuthorFirstName" placeholder="Enter First Name">
-            
+          <label for="FirstName"> First Name </label> 
+          <input type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
           <label> Last Name </label>
-          <input type="text" name="input-AuthorLastName" id="input-AuthorLastName" placeholder="Enter Last Name"> 
+          <input type="text" name="LastName" id="LastName" placeholder="Enter Last Name"> 
+           <label> Email </label>
+          <input type="text" name="Email" id="Email" placeholder="Enter Student's Email"> 
+          <input type="hidden" name="IsTeacher" value = 0>
           <p></p>
+          <div>
+            <button>Submit</button>
+          </div>
+       </fieldset>
+  </form>
+   
+  </div> 
 
-    <input type="submit">
+        
 
-    </fieldset>
-  </form> 
-    
     <!-- update -->
     <p>&nbsp;</p>
     <div id="update">
-        <form method="POST" id="UpdateAuthor">
-            <legend><strong>Update Author</strong></legend>
+        <form method="PUT" id = "edit-student">
+            <legend><strong>Update Student</strong></legend>
               <fieldset class="fields">
                 <p></p>
-                <strong>CAUTION this will update all associated books.</strong>
-                <p>&nbsp;</p>
-                <label> Select Author </label> <select name="Author">
-                  <option value="1" selected>Delia Owens</option>
-                  <option value="2">Colleen Hoover</option>
-                  <option value="3">Elin Hilderbrand</option>
-                  <option value="4">John Grisham</option>
+                <label> Select Student </label> 
+                <select name="student">
+                  {{#each userData}}
+                  <option value = {{this.IDUser}}>{{this.FirstName}} {{this.LastName}}</option>
+                  {{/each}}
                 </select>
-                <label> Update First Name </label> <input type="text" name="AuthorFirstName" placeholder="Enter First Name">
-                <label> Update Last Name </label> <input type="text" name="AuthorLastName" placeholder="Enter Last Name">
+                <input type="hidden" name="IsTeacher" value = 0>
+
+                <label> Update First Name </label> 
+                <input type="text" name="FirstName" placeholder="Enter First Name">
+                <label> Update Last Name </label> 
+                <input type="text" name="LastName" placeholder="Enter Last Name">
+                <label> Update Email </label> 
+                <input type="text" name="Email" placeholder="Enter Student's Email">
+                {{!-- <input type="hidden" name="IsTeacher" value = 0> --}}
+
                 <p></p>
+
           </fieldset>
-              <input class="btn" type="submit" id="updateSaveAuthor" value="Save Update Author">
-              <input class="btn" type="button" value="Cancel" onClick="browseAuthors()">
+
+              <input class="btn" type="submit" id="updateStudent" value="Update Student" onclick = updateUserJS(student, FirstName, LastName, Email)>
+              <input class="btn" type="button" value="Cancel" onClick="this.form.reset()">
       </form> 
-    </div> --}}
+    </div>
   </html>
     

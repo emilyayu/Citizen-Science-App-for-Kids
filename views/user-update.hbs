@@ -1,0 +1,52 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./js/user_helper.js"></script>
+<title>Students</title>
+</head>
+
+  <h2>Edit Student</h2>
+      <table id = "student-table">
+    
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each userData}}
+        <tr data-value={{this.IDUser}}>
+            <td>{{this.IDUser}}</td>
+            <td>{{this.FirstName}}</td>
+            <td>{{this.LastName}}</td>
+            <td>{{this.Email}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+    </table>
+  
+  <form id = "edit-student" onclick="updateUserJS()">
+
+
+      <fieldset class="fields">
+          <p></p>
+          <label for="FirstName"> First Name </label> 
+          <input type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
+          <label> Last Name </label>
+          <input type="text" name="LastName" id="LastName" placeholder="Enter Last Name"> 
+           <label> Email </label>
+          <input type="text" name="Email" id="Email" placeholder="Enter Student's Email"> 
+          <input type="hidden" name="IsTeacher" value = 0>
+          <p></p>
+          <div>
+            <button>Submit</button>
+          </div>
+       </fieldset>
+  </form>
+   
+  </div> 

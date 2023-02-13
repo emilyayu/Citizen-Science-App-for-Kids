@@ -16,9 +16,13 @@ app.engine('.hbs', engine({
   extname: ".hbs", defaultLayout: "main"}));  
 app.set('view engine', 'hbs')
 
+//location of your views folder
+app.set('views', __dirname + '/views');
+
 
 app.use(express.static(path.join(__dirname + '/public')));
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Home Page 
 app.get('/', (req, res) => {
@@ -26,17 +30,11 @@ app.get('/', (req, res) => {
 });
 
 // Users Page
-app.use('/users', users)
-// app.get('/users', (req, res)=> {
-//   res.render('users');
-// });
-
+app.use('/users', users);
 
 // Projects Page
 app.get('/projects', (req, res) => {
   app.use('/projects', projects)
-
-  res.render('projects');
 });
 
 

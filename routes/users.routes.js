@@ -15,13 +15,16 @@ const user_ctrl = require('../controllers/users.controllers')
 //CREATE
 router.post('/', (req, res, next) => {
     user_ctrl.createUser(req, (error, results)=>{
+
         if(error){
             res.status(400).send('create user error')
             console.log(error)
             next(error)
             return
         }
-        res.status(201).json(results)
+        res.status(201)
+        res.redirect('/users')
+        // res.status(201).json(results)
     })
 })
 
@@ -47,7 +50,21 @@ router.get('/', (req, res, next) => {
 })
 
 //READ ONE
+// router.get('/:id', (req, res, next) => {
+//     user_ctrl.readUser(req, (error, results)=>{
+//         if(error){
+//             res.status(400).send('get one user error')
+//             console.log(error)
+//             next(error)
+//             return
+//         }
+//         res.status(200).json(results)
+//     })
+// })
+
 router.get('/:id', (req, res, next) => {
+
+    // console.log('LINE67', req)
     user_ctrl.readUser(req, (error, results)=>{
         if(error){
             res.status(400).send('get one user error')
@@ -55,15 +72,30 @@ router.get('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+
+        let userData = results
+
+// **** FOR SOME REASON HBS is not rendering the user-update page
+// Can someone help me take a look at this
+// userData is passing information properly
+    res.render('user-update', {
+        title: "SPECIFIC USER",
+        userData
     })
+        console.log("Routes - line80", userData)
+
+    })
+
+    res.status(200)
+
 })
 
 //UPDATE
+
 router.put('/:id', (req, res, next) => {
     user_ctrl.updateUser(req, (error, results)=>{
         if(error){
-            res.status('400').send('update user error')
+            res.status(400).send('update user error')
             console.log(error)
             next(error)
             return
