@@ -10,6 +10,7 @@ var config = require('./config')
 const index = require('./routes/index.routes')
 const users = require('./routes/users.routes')
 const projects = require('./routes/projects.routes')
+const projectEntries= require('./routes/project-entries.routes')
 
 // handlebars setup
 app.engine('.hbs', engine({ 
@@ -27,17 +28,8 @@ app.get('/', (req, res) => {
 
 // Users Page
 app.use('/users', users)
-// app.get('/users', (req, res)=> {
-//   res.render('users');
-// });
-
-
-// Projects Page
-app.get('/projects', (req, res) => {
-  app.use('/projects', projects)
-
-  res.render('projects');
-});
+app.use('/projects', projects)
+app.use('/project-entries', projectEntries)
 
 
 app.listen(config.app.port, () => {
