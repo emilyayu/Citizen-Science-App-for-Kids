@@ -1,4 +1,8 @@
 const express = require('express')
+var bodyParser = require('body-parser');
+const { engine } = require('express-handlebars');
+const path = require('path')
+
 const app = express()
 
 var config = require('./config')
@@ -8,12 +12,25 @@ const users = require('./routes/users.routes')
 const projects = require('./routes/projects.routes')
 const projectEntries= require('./routes/project-entries.routes')
 
-app.use('/', index)
+// handlebars setup
+app.engine('.hbs', engine({ 
+  extname: ".hbs", defaultLayout: "main"}));  
+app.set('view engine', 'hbs')
+
+
+app.use(express.static(path.join(__dirname + '/public')));
+
+
+// Home Page 
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+// Users Page
 app.use('/users', users)
 app.use('/projects', projects)
 app.use('/project-entries', projectEntries)
 
-// app.use(express.static(__dirname + '/public'));
 
 app.listen(config.app.port, () => {
   console.log(`Launching ${config.app.name}. Server listening on port ${config.app.port}`)

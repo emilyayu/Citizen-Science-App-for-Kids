@@ -23,6 +23,7 @@ function getAccessCode(){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 //Uses request body & file to generate a list of values for create entries pool query
 function getProjectEntryValues(req){
 
@@ -88,6 +89,22 @@ function getPublicUrl(req){
     return image_url
 }
 
+function ValidateEmail(mail) 
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+    {
+        return (true)
+    }
+    return (false)
+}
+
+function IsString(str){
+    if (typeof str === 'string' || str instanceof String)
+    {
+        return (true)
+    }
+    return (false)
+}
 
 module.exports = 
 {
@@ -95,5 +112,7 @@ module.exports =
     getProjectEntryValues,
     getProjectEntryUpdValues,
     getUTCDateTime,
-    getPublicUrl
+    getPublicUrl,
+    ValidateEmail,
+    IsString
 }

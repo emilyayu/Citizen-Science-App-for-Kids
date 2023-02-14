@@ -3,6 +3,7 @@
 
 const pool = require("../connection");
 const helper = require('../helper')
+const err = require('../error_helper')
 
 //Project QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
@@ -16,6 +17,23 @@ const delete_project = 'DELETE FROM Projects WHERE IDProjects = ?'
 function createProject(req, next){
     //generate list of values for query
     const project = Object.values(req.body)
+
+    if (!("ProjectName" in req.body) || (req.body.ProjectName === "")) {
+        throw new err.PropertyRequiredError("ProjectName")
+    }
+
+    if (!("ProjectType" in req.body) || (req.body.ProjectType === "")) {
+        throw new err.PropertyRequiredError("ProjectType")
+    }
+
+    if (!("ProjectDescription" in req.body) || (req.body.ProjectDescription === "")) {
+        throw new err.PropertyRequiredError("ProjectDescription")
+    }
+
+    if (!("ProjectImage" in req.body) || (req.body.ProjectImage === "")) {
+        throw new err.PropertyRequiredError("ProjectImage")
+    }
+
     project.push(helper.getAccessCode())
 
     //ADD IMAGE with HELPER sending image to google storage
@@ -28,8 +46,8 @@ function createProject(req, next){
         if (error){
             next(error)
         }
-        // IDProjects = {project_id: results.insertId}
-        next(null, results)
+        IDProjects = {project_id: results.insertId}
+        next(null, IDProjects)
     })
 
     return
