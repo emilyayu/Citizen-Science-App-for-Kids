@@ -17,14 +17,13 @@ router.post('/', (req, res, next) => {
     user_ctrl.createUser(req, (error, results)=>{
 
         if(error){
-            res.status(400).send('create user error')
+            res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
             return
         }
         res.status(201)
         res.redirect('/users')
-        // res.status(201).json(results)
     })
 })
 
@@ -34,13 +33,12 @@ router.get('/', (req, res, next) => {
     user_ctrl.readUsers((error, results)=>{
         
         if(error){
-            res.status(400).send('get all user error')
+            res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
             return
         }
         userData = results
-        // res.status(200).json(results)
         res.render('users', {
             title: 'Users',
             userData
@@ -56,7 +54,7 @@ router.get('/:id', (req, res, next) => {
     // console.log('LINE67', req)
     user_ctrl.readUser(req, (error, results)=>{
         if(error){
-            res.status(400).send('get one user error')
+            res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
             return
@@ -77,7 +75,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/:id', (req, res, next) => {
     user_ctrl.updateUser(req, (error, results)=>{
         if(error){
-            res.status(400).send('update user error')
+            res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
             return
@@ -91,7 +89,7 @@ router.post('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
     user_ctrl.deleteUser(req, (error, results)=>{
         if(error){
-            res.status('400').send('delete user error')
+            res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
             return

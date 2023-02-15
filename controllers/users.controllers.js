@@ -2,6 +2,8 @@
 //https://github.com/mysqljs/mysql
 
 const pool = require("../connection");
+const err = require("../error_helper")
+const helper = require("../helper")
 
 //USER QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
@@ -14,7 +16,39 @@ const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
 // CREATE
 function createUser(req, next){
     //generate list of values for query
+    const email = req.body.Email
     const user = Object.values(req.body)
+
+    if (!("FirstName" in req.body) || (req.body.FirstName === "")) {
+        throw new err.PropertyRequiredError("FirstName")
+    }
+
+    if (!("LastName" in req.body) || (req.body.LastName === "")) {
+        throw new err.PropertyRequiredError("LastName")
+    }
+
+    if (!("Email" in req.body) || (req.body.Email === "")) {
+        throw new err.PropertyRequiredError("Email")
+    }
+
+    if (!(helper.IsString(req.body.FirstName))) {
+        throw new err.TypeError("string")
+    }
+
+    if (!(helper.IsString(req.body.LastName))) {
+        throw new err.TypeError("string")
+    }
+
+    if (!(helper.IsString(req.body.Email))) {
+        throw new err.TypeError("string")
+    }
+
+    validEmail = helper.ValidateEmail(email)
+    
+    if (!validEmail) {
+        throw new err.InvalidEmail(email)
+    }
+
     // insert new user into database
     pool.query(create_user, user, (error, results, fields) =>{
         //if error pass to callback function
@@ -25,9 +59,8 @@ function createUser(req, next){
         next(null, results)
     })
 
-    return
+    return   
 }
-
 
 // READ ALL
 function readUsers(next){
@@ -92,6 +125,13 @@ function deleteUser(req, next){
     })
 
     return
+}
+
+function User(firstName, lastName, email, isTeacher) {
+    this.FirstName = firstName,
+    this.LastName = lastName,
+    this.Email = email,
+    this.IsTeacher = isTeacher
 }
 
 //EXPORT FUNCTIONS

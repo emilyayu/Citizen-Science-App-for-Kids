@@ -11,6 +11,7 @@ require('dotenv').config();
 const index = require('./routes/index.routes')
 const users = require('./routes/users.routes')
 const projects = require('./routes/projects.routes')
+const projectEntries= require('./routes/project-entries.routes')
 
 // handlebars setup
 const handlebars = exphbs.create({ extname: '.hbs',});
@@ -36,14 +37,14 @@ app.get('/', (req, res) => {
 });
 
 // Users Page
-app.use('/users', users);
+app.use('/users', users)
 
 // Projects Page
-app.get('/projects', (req, res) => {
-  app.use('/projects', projects)
-});
+app.use('/projects', projects)
+app.use('/project-entries', projectEntries)
 
 
+const PORT = process.env.PORT || 8080;
 app.listen(config.app.port, () => {
   console.log(`Launching ${config.app.name}. Server listening on port ${config.app.port}`)
 })
