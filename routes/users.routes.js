@@ -15,13 +15,15 @@ const user_ctrl = require('../controllers/users.controllers')
 //CREATE
 router.post('/', (req, res, next) => {
     user_ctrl.createUser(req, (error, results)=>{
+
         if(error){
             res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
             return
         }
-        res.status(201).json(results)
+        res.status(201)
+        res.redirect('/users')
     })
 })
 
@@ -37,7 +39,6 @@ router.get('/', (req, res, next) => {
             return
         }
         userData = results
-        // res.status(200).json(results)
         res.render('users', {
             title: 'Users',
             userData
@@ -47,7 +48,10 @@ router.get('/', (req, res, next) => {
 })
 
 //READ ONE
+
 router.get('/:id', (req, res, next) => {
+    let userData;
+    // console.log('LINE67', req)
     user_ctrl.readUser(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -55,12 +59,20 @@ router.get('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+
+        userData = results
+
+        res.render('user-update', {
+            title: 'Users',
+            userData
+        })
+    res.status(200)
     })
 })
 
 //UPDATE
-router.put('/:id', (req, res, next) => {
+
+router.post('/:id', (req, res, next) => {
     user_ctrl.updateUser(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -68,7 +80,8 @@ router.put('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+        res.redirect("/users")
+        res.status(200)
     })
 })
 

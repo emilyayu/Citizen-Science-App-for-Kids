@@ -6,7 +6,8 @@ Uses as a model the example from CS340 Canvas Modules
 <html>
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./js/delete_user.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="./js/user_helper.js"></script>
 <title>Students</title>
 </head>
 
@@ -15,7 +16,32 @@ Uses as a model the example from CS340 Canvas Modules
     View, add, update or delete students.
 
   </p>
- 
+    <p>&nbsp;</p>
+  </p>
+   <!-- Add a new Student to the Database -->
+  <form action="/users" method="POST" id = "add-student">
+            <legend><strong>Add Student</strong></legend>
+
+      <fieldset class="fields">
+
+          <p></p>
+          <label for="FirstName"> First Name </label> 
+          <input type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
+          <label> Last Name </label>
+          <input type="text" name="LastName" id="LastName" placeholder="Enter Last Name"> 
+           <label> Email </label>
+          <input type="text" name="Email" id="Email" placeholder="Enter Student's Email"> 
+          <input type="hidden" name="IsTeacher" value = 0>
+          <p></p>
+          <div>
+            <button>Submit</button>
+          </div>
+       </fieldset>
+  </form>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
    <div id="overviewUsers" style="display: block">
     <table id = "student-table">
     
@@ -25,67 +51,34 @@ Uses as a model the example from CS340 Canvas Modules
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Edit</th>
             <th>Delete</th>
+
         </tr>
     </thead>
 
     <tbody>
         {{#each userData}}
-        <tr data-value={{this.id}}>
+        <tr data-value={{this.IDUser}}>
             <td>{{this.IDUser}}</td>
             <td>{{this.FirstName}}</td>
             <td>{{this.LastName}}</td>
             <td>{{this.Email}}</td>
+            <td><a href="/users/{{this.IDUser}}" type="button"><i class="fa fa-edit"></i></a></td>
+            <td><button class="trash" onclick="deleteUserJS({{this.IDUser}})"><i class="fa fa-trash-o"></i></button></td>
 
-            <td><button onclick="deleteUserJS({{this.IDUser}})">Delete</button></td>
+            {{!-- <td><button onclick= "getUserJS({{this.IDUser}})">Edit {{this.IDUser}}</button></td> --}}
+
         </tr>
         {{/each}}
     </tbody>
     </table>
        
     <p>&nbsp;</p>
-    </div> 
-{{!--     
-  <!-- Add a new Author to the Database -->
-  <h2>Add Author</h2>
-  <p>To add a new author to the database, please enter their information below.</p>
-  <form method="POST" id="addAuthor" action="/add-author-form">
-      <fieldset class="fields">
-          <p></p>
-          <label for="input-AuthorFirstName"> First Name </label> 
-          <input type="text" name="input-AuthorFirstName" id="input-AuthorFirstName" placeholder="Enter First Name">
-            
-          <label> Last Name </label>
-          <input type="text" name="input-AuthorLastName" id="input-AuthorLastName" placeholder="Enter Last Name"> 
-          <p></p>
 
-    <input type="submit">
+   
+  </div> 
 
-    </fieldset>
-  </form> 
-    
-    <!-- update -->
-    <p>&nbsp;</p>
-    <div id="update">
-        <form method="POST" id="UpdateAuthor">
-            <legend><strong>Update Author</strong></legend>
-              <fieldset class="fields">
-                <p></p>
-                <strong>CAUTION this will update all associated books.</strong>
-                <p>&nbsp;</p>
-                <label> Select Author </label> <select name="Author">
-                  <option value="1" selected>Delia Owens</option>
-                  <option value="2">Colleen Hoover</option>
-                  <option value="3">Elin Hilderbrand</option>
-                  <option value="4">John Grisham</option>
-                </select>
-                <label> Update First Name </label> <input type="text" name="AuthorFirstName" placeholder="Enter First Name">
-                <label> Update Last Name </label> <input type="text" name="AuthorLastName" placeholder="Enter Last Name">
-                <p></p>
-          </fieldset>
-              <input class="btn" type="submit" id="updateSaveAuthor" value="Save Update Author">
-              <input class="btn" type="button" value="Cancel" onClick="browseAuthors()">
-      </form> 
-    </div> --}}
+
   </html>
     
