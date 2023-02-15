@@ -63,7 +63,7 @@ router.get('/', (req, res, next) => {
 // })
 
 router.get('/:id', (req, res, next) => {
-
+    let userData;
     // console.log('LINE67', req)
     user_ctrl.readUser(req, (error, results)=>{
         if(error){
@@ -72,27 +72,21 @@ router.get('/:id', (req, res, next) => {
             next(error)
             return
         }
+        // res.render('user-update')
 
-        let userData = results
+        userData = results
 
-// **** FOR SOME REASON HBS is not rendering the user-update page
-// Can someone help me take a look at this
-// userData is passing information properly
-    res.render('user-update', {
-        title: "SPECIFIC USER",
-        userData
-    })
-        console.log("Routes - line80", userData)
-
-    })
-
+        res.render('user-update', {
+            title: 'Users',
+            userData
+        })
     res.status(200)
-
+    })
 })
 
 //UPDATE
 
-router.put('/:id', (req, res, next) => {
+router.post('/:id', (req, res, next) => {
     user_ctrl.updateUser(req, (error, results)=>{
         if(error){
             res.status(400).send('update user error')
@@ -100,7 +94,8 @@ router.put('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+        res.redirect("/users")
+        res.status(200)
     })
 })
 

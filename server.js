@@ -1,28 +1,34 @@
 const express = require('express')
-var bodyParser = require('body-parser');
-const { engine } = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const path = require('path')
 
 const app = express()
 
 var config = require('./config')
+require('dotenv').config();
+
 
 const index = require('./routes/index.routes')
 const users = require('./routes/users.routes')
 const projects = require('./routes/projects.routes')
 
 // handlebars setup
-app.engine('.hbs', engine({ 
-  extname: ".hbs", defaultLayout: "main"}));  
+const handlebars = exphbs.create({ extname: '.hbs',});
+app.engine('.hbs', handlebars.engine);
 app.set('view engine', 'hbs')
 
 //location of your views folder
 app.set('views', __dirname + '/views');
 
 
+// express.static(path.join(__dirname, '/public'));
 app.use(express.static(path.join(__dirname + '/public')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.static('public'));
+
+
+// Parsing middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Home Page 
 app.get('/', (req, res) => {

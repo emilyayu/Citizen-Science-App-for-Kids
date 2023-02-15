@@ -56,7 +56,7 @@ header {
 
 .topnav a {
   float: left;
-  color: #black;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -211,7 +211,11 @@ tbody tr:nth-child(even) {
 }
 tr:hover {background-color: #ddd;}
 
-
+button.trash{
+  padding: 0;
+  border: none;
+  background: none;
+}
 
 /* form */
 fieldset{
@@ -228,43 +232,34 @@ button{
 }
 
 
-
-/* .App {
-  text-align: center;
-} */
-
-/*
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+ /* Style the list */
+ ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
 }
 
-.App-link {
-  color: #61dafb;
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+} 
