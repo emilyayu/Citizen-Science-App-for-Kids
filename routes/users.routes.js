@@ -50,17 +50,6 @@ router.get('/', (req, res, next) => {
 })
 
 //READ ONE
-// router.get('/:id', (req, res, next) => {
-//     user_ctrl.readUser(req, (error, results)=>{
-//         if(error){
-//             res.status(400).send('get one user error')
-//             console.log(error)
-//             next(error)
-//             return
-//         }
-//         res.status(200).json(results)
-//     })
-// })
 
 router.get('/:id', (req, res, next) => {
     let userData;
