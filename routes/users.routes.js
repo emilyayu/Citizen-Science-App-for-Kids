@@ -61,7 +61,6 @@ router.get('/:id', (req, res, next) => {
             next(error)
             return
         }
-        // res.render('user-update')
 
         userData = results
 
