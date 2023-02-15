@@ -31,7 +31,7 @@ app.use('/users', users)
 app.use('/projects', projects)
 app.use('/project-entries', projectEntries)
 
-
-app.listen(config.app.port, () => {
-  console.log(`Launching ${config.app.name}. Server listening on port ${config.app.port}`)
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Launching ${config.app.name}. Server listening on port ${PORT}`)
 })
