@@ -18,7 +18,8 @@ router.post('/', (req, res, next) => {
             next(error)
             return
         }
-        res.status(201).json(results)
+        res.status(201)
+        res.redirect('/projects')
     })
 })
 
@@ -31,7 +32,13 @@ router.get('/', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+        const userData = results
+
+        res.status(200)
+        res.render('projects', {
+            title: 'Projects',
+            userData
+        })
     })
 })
 
@@ -44,12 +51,17 @@ router.get('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+        const userData = results
+        res.status(200)
+        res.render('project-update', {
+            title: 'Projects',
+            userData
+        })
     })
 })
 
 //UPDATE
-router.put('/:id', (req, res, next) => {
+router.post('/:id', (req, res, next) => {
     projects_ctrl.updateProject(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -57,7 +69,8 @@ router.put('/:id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+        res.status(200)
+        res.redirect("/projects")
     })
 })
 

@@ -25,7 +25,6 @@ body{
   font-size: 16px;
 } */
 
-
 header {
   background-color: white;
   position: fixed;
@@ -76,16 +75,18 @@ header {
 /* Dropdown Menu CSS */
 .menu-btn {
   background-color: white;
-  padding: 14px 16px;
-  padding: 14px 16px;
-
-  font-size: 17px;
+  color:black;
+  font-size: 1em;
   border: none;
+  border-radius: 0 ;
 }
+
 .dropdown-menu {
+  background-color: white;
   position: relative;
   display: inline-block;
 }
+
 .menu-content {
   display: none;
   position: absolute;
@@ -93,6 +94,7 @@ header {
   min-width: 160px;
   z-index: 1;
 }
+
 .links,.links-hidden{
   display: inline-block;
   color: rgb(255, 255, 255);
@@ -170,6 +172,7 @@ h1{
 h2{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color:  #191819;
+  margin:1em;
   
 }
 
@@ -186,22 +189,20 @@ table.styled-table {
 tr th{
   text-align: center;
   width: 1%;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 1em;
+  padding-bottom: 1em;
   border: thin;
   background-color: #191819;
   color:whitesmoke;
 
 
 }
-/* tr td{
-  width: 75%;
-  border: thin;
-  background-color: #f6f4f2;
-  color: #191819;
-  padding: 12px;
 
-} */
+tr td{
+  border: thin;
+  padding: .5em;
+}
+
 tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
@@ -212,6 +213,7 @@ tbody tr:nth-child(even) {
 tr:hover {background-color: #ddd;}
 
 button.trash{
+  color:black;
   padding: 0;
   border: none;
   background: none;
@@ -220,28 +222,62 @@ button.trash{
 /* form */
 fieldset{
   font-family:  "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;
+  border-color: #4b5668;
+  border-width: 1px;
+  border-radius: 10px;
 }
+
 legend{
     font-family:  "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;
 }
+
+form{
+  display: inline-block;
+  width: 80%;
+  margin: 2em;
+}
+
 input{
   font-family:  "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;
+  padding:.75em;
+  margin: 1em;
+  border-radius: 10px;
+  border-color: #4b5668;
+  border-width: 1px;
 }
+
+textarea{
+  font-family:  "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;
+  border-radius: 10px;
+  padding: 1em .75em;
+  margin-top: 1em;
+}
+
 button{
   font-family:  "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;
+  color:white;
+  background-color: #0063e6;
+  margin: 1em;
+  padding: .5em 1em;
+  border-color: black;
+  border-width: 0;
+  border-radius: 10px;
 }
 
+.breadcrumb {
+  text-align: left;
+  padding: 0 .5rem;
+}
 
  /* Style the list */
- ul.breadcrumb {
-  padding: 10px 16px;
+.breadcrumb ul{
   list-style: none;
   background-color: #eee;
 }
 
 /* Display list items side by side */
 ul.breadcrumb li {
-  display: inline;
+  display: inline-block;
   font-size: 18px;
 }
 

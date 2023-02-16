@@ -1,3 +1,6 @@
+
+
+
 function deleteUserJS(IDUser) {
     let link = '/users/'+IDUser;
     let data = {

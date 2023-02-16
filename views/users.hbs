@@ -1,84 +1,62 @@
+<!-- users.hbs-->
 <!--
 Uses as a model the example from CS340 Canvas Modules
 -->
 
-
-<html>
-<head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="./js/user_helper.js"></script>
-<title>Students</title>
-</head>
-
 <h1>Student Information</h1>
-  <p>
-    View, add, update or delete students.
+<p>
+  View, add, update or delete students.
 
-  </p>
-    <p>&nbsp;</p>
-  </p>
-   <!-- Add a new Student to the Database -->
-  <form action="/users" method="POST" id = "add-student">
-            <legend><strong>Add Student</strong></legend>
+  <!-- Add a new Student to the Database -->
+<form action="/users" method="POST" id="add-student">
 
-      <fieldset class="fields">
+  <fieldset class="fields">
+    <legend><strong>Add Student</strong></legend>
 
-          <p></p>
-          <label for="FirstName"> First Name </label> 
-          <input type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
-          <label> Last Name </label>
-          <input type="text" name="LastName" id="LastName" placeholder="Enter Last Name"> 
-           <label> Email </label>
-          <input type="text" name="Email" id="Email" placeholder="Enter Student's Email"> 
-          <input type="hidden" name="IsTeacher" value = 0>
-          <p></p>
-          <div>
-            <button>Submit</button>
-          </div>
-       </fieldset>
-  </form>
+    <label for="FirstName"> First Name </label>
+    <input type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
+    <label> Last Name </label>
+    <input type="text" name="LastName" id="LastName" placeholder="Enter Last Name">
+    <label> Email </label>
+    <input type="text" name="Email" id="Email" placeholder="Enter Student's Email">
+    <input type="hidden" name="IsTeacher" value=0>
 
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+    <div>
+      <button>Submit</button>
+    </div>
+  </fieldset>
 
-   <div id="overviewUsers" style="display: block">
-    <table id = "student-table">
-    
+</form>
+
+<div id="overviewUsers" style="display: block">
+  <table id="student-table">
+
     <thead>
-        <tr>
-            <th>Student ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Edit</th>
-            <th>Delete</th>
+      <tr>
+        <th>Student ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
-        </tr>
+      </tr>
     </thead>
 
     <tbody>
-        {{#each userData}}
-        <tr data-value={{this.IDUser}}>
-            <td>{{this.IDUser}}</td>
-            <td>{{this.FirstName}}</td>
-            <td>{{this.LastName}}</td>
-            <td>{{this.Email}}</td>
-            <td><a href="/users/{{this.IDUser}}" type="button"><i class="fa fa-edit"></i></a></td>
-            <td><button class="trash" onclick="deleteUserJS({{this.IDUser}})"><i class="fa fa-trash-o"></i></button></td>
+      {{#each userData}}
+      <tr data-value={{this.IDUser}}>
+        <td>{{this.IDUser}}</td>
+        <td>{{this.FirstName}}</td>
+        <td>{{this.LastName}}</td>
+        <td>{{this.Email}}</td>
+        <td><a href="/users/{{this.IDUser}}" type="button"><i class="fa fa-edit"></i></a></td>
+        <td><button class="trash" onclick="deleteUserJS({{this.IDUser}})"><i class="fa fa-trash-o"></i></button></td>
 
-            {{!-- <td><button onclick= "getUserJS({{this.IDUser}})">Edit {{this.IDUser}}</button></td> --}}
+        {{!-- <td><button onclick="getUserJS({{this.IDUser}})">Edit {{this.IDUser}}</button></td> --}}
 
-        </tr>
-        {{/each}}
+      </tr>
+      {{/each}}
     </tbody>
-    </table>
-       
-    <p>&nbsp;</p>
-
-   
-  </div> 
-
-
-  </html>
-    
+  </table>
+</div>
