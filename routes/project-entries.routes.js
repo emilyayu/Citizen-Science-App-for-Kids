@@ -42,6 +42,7 @@ router.post('/', multer.single('EntryImage'), (req, res, next) => {
 
 //READ ALL 
 router.get('/', (req, res, next) => {
+
     project_ent_ctrl.readAllProjectEntries((error, results)=>{
         if(error){
             res.status(400).send('get all project entries error')
@@ -49,12 +50,17 @@ router.get('/', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
-    })
+        console.log("LINE53 - router",results)
+        const data = results
+        res.render('project-entries',
+            {data})
+    })        
+    res.status(200)
+
 })
 
 //READ ONE PROJECT'S ENTRIES
-router.get('/projects/:project_id', (req, res, next) => {
+router.get('/:project_id', (req, res, next) => {
     project_ent_ctrl.readProjectEntries(req, (error, results)=>{
         if(error){
             res.status(400).send('get one project entry error')
@@ -62,22 +68,25 @@ router.get('/projects/:project_id', (req, res, next) => {
             next(error)
             return
         }
-        res.status(200).json(results)
+        const data = results
+        res.render('specific-project-entries',
+            {data})
+        res.status(200)
     })
 })
 
-//READ ONE
-router.get('/:id', (req, res, next) => {
-    project_ent_ctrl.readProjectEntry(req, (error, results)=>{
-        if(error){
-            res.status(400).send('get one project entry error')
-            console.log(error)
-            next(error)
-            return
-        }
-        res.status(200).json(results)
-    })
-})
+// //READ ONE
+// router.get('/:id', (req, res, next) => {
+//     project_ent_ctrl.readProjectEntry(req, (error, results)=>{
+//         if(error){
+//             res.status(400).send('get one project entry error')
+//             console.log(error)
+//             next(error)
+//             return
+//         }
+//         res.status(200).json(results)
+//     })
+// })
 
 //UPDATE
 router.patch('/:id', multer.single('EntryImage'), (req, res, next) => {

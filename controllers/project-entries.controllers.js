@@ -11,7 +11,16 @@ const helper = require('../helper')
 // Note: some places in the documentation use ` around table names -- may need to add this
 const create_project_entry = 'INSERT INTO ProjectEntries (EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK) VALUES (?, ?, ST_GeomFromText(?, 4326), ?, ?)'
 const read_all_project_entries = 'SELECT * FROM ProjectEntries'
-const read_project_entries= 'SELECT * FROM ProjectEntries WHERE ProjectsFK = ?'
+const read_data_all_project_entries = `SELECT ProjectEntries.IDProjectEntries, ProjectEntries.ProjectsFK,ProjectEntries.UsersFK, Users.FirstName, Users.LastName, ProjectEntries.EntryDate, ProjectEntries.EntryImage, ProjectEntries.EntryLatLong, Projects.ProjectName FROM ProjectEntries
+                                        JOIN Users ON ProjectEntries.UsersFK = Users.IDUser
+                                        JOIN Projects ON ProjectEntries.ProjectsFK = Projects.IDProjects
+                                        ORDER BY ProjectEntries.EntryDate ASC;`
+
+const read_project_entries= `SELECT ProjectEntries.IDProjectEntries, ProjectEntries.ProjectsFK,ProjectEntries.UsersFK, Users.FirstName, Users.LastName, ProjectEntries.EntryDate, ProjectEntries.EntryImage, ProjectEntries.EntryLatLong, Projects.ProjectName FROM ProjectEntries
+                            JOIN Users ON ProjectEntries.UsersFK = Users.IDUser
+                            JOIN Projects ON ProjectEntries.ProjectsFK = Projects.IDProjects
+                            WHERE ProjectEntries.ProjectsFK = ?
+                            ORDER BY ProjectEntries.EntryDate ASC;`
 const read_project_entry= 'SELECT * FROM ProjectEntries WHERE IDProjectEntries = ?'
 const update_project_entry = 'UPDATE ProjectEntries SET EntryImage = ?, EntryLatLong = ST_GeomFromText(?, 4326) WHERE IDProjectEntries = ?'
 const delete_project_entry = 'DELETE FROM ProjectEntries WHERE IDProjectEntries = ?'
@@ -38,7 +47,8 @@ function createProjectEntry(req, next){
 // READ ALL ENTRIES
 function readAllProjectEntries(next){
     // list all projects from database
-    pool.query(read_all_project_entries, (error, results, fields) =>{
+    pool.query(read_data_all_project_entries, (error, results, fields) =>{
+        console.log(results)
         //if error pass to callback function
         if (error){
             next(error)
