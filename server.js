@@ -24,7 +24,6 @@ app.set('views', __dirname + '/views');
 
 // express.static(path.join(__dirname, '/public'));
 app.use(express.static(path.join(__dirname + '/public')));
-app.use(express.static('public'));
 
 
 // Parsing middleware

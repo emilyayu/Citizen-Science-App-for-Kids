@@ -1,16 +1,60 @@
-<html>
-<head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="./routes/projects.routes.js"></script>
+<!-- projects.hbs-->
 
 <title>Projects</title>
-</head>
 
 <h1>Projects</h1>
-  <p>
-    View, add, update or delete projects.
+<p>
+  View, add, update or delete projects.
+</p>
 
-  </p>
+<!-- Add a new Student to the Database -->
+<form action="/projects" method="POST" id="add-project">
 
+  <fieldset class="fields">
+    <legend><strong>Add Project</strong></legend>
 
-  </html>
+    <label for="ProjectName"> Project Name </label>
+    <input type="text" name="ProjectName" id="ProjectName" placeholder="Name">
+    <input type="hidden" name="ProjectType" value="Image & Geo">
+    <label> Project Description </label>
+    <textarea name="ProjectDescription" id="ProjectDescription" cols="30" rows="5"></textarea>
+    <input type="hidden" name="ProjectImage" value="blackberry.jpg">
+
+    <div>
+      <button>Submit</button>
+    </div>
+  </fieldset>
+
+</form>
+
+<div id="overviewUsers" style="display: block">
+  <table id="project-table">
+
+    <thead>
+      <tr>
+        <th>Project ID</th>
+        <th>Project Name</th>
+        <th>Project Type</th>
+        <th>Project Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each userData}}
+      <tr data-value={{this.IDProjects}}>
+        <td>{{this.IDProjects}}</td>
+        <td>{{this.ProjectName}}</td>
+        <td>{{this.ProjectType}}</td>
+        <td>{{this.ProjectDescription}}</td>
+        <td><a href="/projects/{{this.IDProjects}}" type="button"><i class="fa fa-edit"></i></a></td>
+        <td><button class="trash" onclick="deleteProjectJS({{this.IDProjects}})"><i class="fa fa-trash-o"></i></button>
+        </td>
+
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

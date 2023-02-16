@@ -95,7 +95,6 @@ function readUser(req, next){
 function updateUser(req, next){
     //generate list of values with user_id
     const upd_user = Object.values(req.body)
-    console.log("Controller",upd_user)
     upd_user.push(req.params.id)
 
     //insert new user into database
