@@ -7,9 +7,49 @@
         <li class="breadcrumb-item active" aria-current="page">All Project Data</li>
     </ul>
 </nav>
-{{#each data}}
 <h2>All Projects</h2>
-{{/each}}
+
+<form action="/project-entries" method="POST" id="add-entries">
+  <fieldset class="fields">
+    <legend><strong>Add Project Entry</strong></legend>
+    <br>
+    <label>Project <label>
+    <select>
+        {{#each name}}
+            <option id = "ProjectsFK" name = "ProjectsFK" value={{this.IDProjects}}>{{this.ProjectName}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <label>Student <label>
+    <select>
+        {{#each student_info}}
+            <option id = "UsersFK" name = "UsersFK"  value={{this.IDUsers}}>{{this.FirstName}} {{this.LastName}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <label>Date <label>
+    <input type ="date" id="EntryDate" name ="EntryDate">
+    <br>
+    <label for="img">Select image </label>
+    <input type="file" id="EntryImage" name="EntryImage" accept="image/*">
+    
+    <br>
+    <label>Latitudinal Coordinate<label>
+    <input id="lat" type="text">
+     
+    <br>
+    <label>Longitudinal Coordinate <label>
+    <input id="long" type="text">
+    <br>
+
+    <div>
+      <button>Submit</button>
+    </div>
+  </fieldset>
+
+<br>
 <table id="project-table">
 
     <thead>

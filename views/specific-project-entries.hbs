@@ -1,16 +1,18 @@
 <!-- project-update.hbs-->
 
 {{!-- Breadcrumb Navigation Bar --}}
-{{#each data}}
+{{#each name}}
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page"></li>
+        <li class="breadcrumb-item active" aria-current="page">{{this.ProjectName}}</li>
     </ul>
 </nav>
-<h2>All Projects</h2>
+<h2>{{this.ProjectName}}</h2>
 {{/each}}
-<table id="project-table">
+
+
+<table id="specific-project-table">
 
     <thead>
         <tr>
