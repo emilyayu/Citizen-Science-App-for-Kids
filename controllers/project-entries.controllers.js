@@ -33,7 +33,6 @@ const delete_project_entry = 'DELETE FROM ProjectEntries WHERE IDProjectEntries 
 
 // CREATE
 function createProjectEntry(req, next){
-    console.log("LINE35", req.params)
     //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
     const project_entry = helper.getProjectEntryValues(req)
     console.log("Line37", project_entry)
