@@ -11,18 +11,21 @@ class PropertyRequiredError extends ValidationError {
     constructor(property) {
         super("Missing Property: " + property);
         this.property = property
+        this.code = "PropertyRequiredError"
     }
 }
 
 class InvalidEmail extends ValidationError {
     constructor(email) {
         super("'" + email + "' not a vaild email");
+        this.code = "InvalidEmail"
     }
 }
 
 class TypeError extends ValidationError {
     constructor(type) {
         super("invalid type: " + type + "required")
+        this.code = "TypeError"
     }
 }
 
