@@ -83,19 +83,6 @@ router.get('/:project_id', (req, res, next) => {
     })
 })
 
-// //READ ONE
-// router.get('/:id', (req, res, next) => {
-//     project_ent_ctrl.readProjectEntry(req, (error, results)=>{
-//         if(error){
-//             res.status(400).send('get one project entry error')
-//             console.log(error)
-//             next(error)
-//             return
-//         }
-//         res.status(200).json(results)
-//     })
-// })
-
 //UPDATE
 router.patch('/:id', multer.single('EntryImage'), (req, res, next) => {
     project_ent_ctrl.updateProjectEntry(req, (error, results)=>{
