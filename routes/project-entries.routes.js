@@ -24,7 +24,6 @@ const project_ent_ctrl= require('../controllers/project-entries.controllers')
 
 //CREATE
 router.post('/', multer.single('EntryImage'), (req, res, next) => {
-    console.log(req)
     project_ent_ctrl.createProjectEntry(req, (error, results)=>{
         if (!req.file) {
             res.status(400).send('No file uploaded.');
