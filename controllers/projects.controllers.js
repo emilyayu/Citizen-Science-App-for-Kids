@@ -30,7 +30,7 @@ function createProject(req, next){
         throw new err.PropertyRequiredError("ProjectDescription")
     }
 
-    if (!("ProjectImage" in req.body) || (req.body.ProjectImage === "")) {
+    if (!("ProjectImage" in req.body)) {
         throw new err.PropertyRequiredError("ProjectImage")
     }
 

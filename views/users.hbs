@@ -11,6 +11,14 @@ Uses as a model the example from CS340 Canvas Modules
 <form action="/users" method="POST" id="add-student">
 
   <fieldset class="fields">
+
+    {{#if message}}
+    <div style="text-align: center" class="alert alert-{{message.type}}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{message.intro}}</strong> {{message.message}}
+    </div>
+    {{/if}}
+
     <legend><strong>Add Student</strong></legend>
 
     <label for="FirstName"> First Name </label>
