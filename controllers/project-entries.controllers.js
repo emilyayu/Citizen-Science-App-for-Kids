@@ -11,8 +11,23 @@ const helper = require('../helper')
 // Note: some places in the documentation use ` around table names -- may need to add this
 const create_project_entry = 'INSERT INTO ProjectEntries (EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK) VALUES (?, ?, ST_GeomFromText(?, 4326), ?, ?)'
 const read_all_project_entries = 'SELECT * FROM ProjectEntries'
-const read_project_entries= 'SELECT * FROM ProjectEntries WHERE ProjectsFK = ?'
+const read_data_all_project_entries = `SELECT ProjectEntries.IDProjectEntries, ProjectEntries.ProjectsFK,ProjectEntries.UsersFK, Users.FirstName, Users.LastName, ProjectEntries.EntryDate, ProjectEntries.EntryImage, ProjectEntries.EntryLatLong, Projects.ProjectName FROM ProjectEntries
+                                        JOIN Users ON ProjectEntries.UsersFK = Users.IDUser
+                                        JOIN Projects ON ProjectEntries.ProjectsFK = Projects.IDProjects
+                                        ORDER BY ProjectEntries.EntryDate ASC;`
+
+const read_project_entries= `SELECT ProjectEntries.IDProjectEntries, ProjectEntries.ProjectsFK,ProjectEntries.UsersFK, Users.FirstName, Users.LastName, ProjectEntries.EntryDate, ProjectEntries.EntryImage, ProjectEntries.EntryLatLong, Projects.ProjectName FROM ProjectEntries
+                            JOIN Users ON ProjectEntries.UsersFK = Users.IDUser
+                            JOIN Projects ON ProjectEntries.ProjectsFK = Projects.IDProjects
+                            WHERE ProjectEntries.ProjectsFK = ?
+                            ORDER BY ProjectEntries.EntryDate ASC;`
+const read_gen_project_name= `SELECT * FROM Projects`
+const read_project_name= `SELECT * FROM Projects 
+                            WHERE Projects.IDProjects = ?`
+
 const read_project_entry= 'SELECT * FROM ProjectEntries WHERE IDProjectEntries = ?'
+const read_students= 'SELECT * FROM Users WHERE IsTeacher = 0'
+
 const update_project_entry = 'UPDATE ProjectEntries SET EntryImage = ?, EntryLatLong = ST_GeomFromText(?, 4326) WHERE IDProjectEntries = ?'
 const delete_project_entry = 'DELETE FROM ProjectEntries WHERE IDProjectEntries = ?'
 
@@ -20,14 +35,13 @@ const delete_project_entry = 'DELETE FROM ProjectEntries WHERE IDProjectEntries 
 function createProjectEntry(req, next){
     //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
     const project_entry = helper.getProjectEntryValues(req)
-
+    console.log("Line37", project_entry)
     // insert new ProjectEntry into database
     pool.query(create_project_entry, project_entry, (error, results, fields) =>{
         //if error pass to callback function
         if (error){
             next(error)
         }
-        // IDProjects = {project_id: results.insertId}
         next(null, results)
     })
 
@@ -38,14 +52,18 @@ function createProjectEntry(req, next){
 // READ ALL ENTRIES
 function readAllProjectEntries(next){
     // list all projects from database
-    pool.query(read_all_project_entries, (error, results, fields) =>{
-        //if error pass to callback function
-        if (error){
-            next(error)
-        }
-        next(null, results)
-    })
+    pool.query(read_data_all_project_entries, (error, project_entries, fields) =>{
+        pool.query(read_gen_project_name, (error, project_name, fields)=>{
+            pool.query(read_students, (error, student, fields)=>{
 
+                 //if error pass to callback function
+                if (error){
+                    next(error)
+                }
+                next(null, project_entries, project_name, student)
+            })
+        })
+    })
     return
 }
 
@@ -54,12 +72,17 @@ function readProjectEntries(req, next){
     const project_id = [parseInt(req.params.project_id)]
 
     // read a project from database
-    pool.query(read_project_entries, project_id, (error, results, fields) =>{
-        //if error pass to callback function
-        if (error){
-            next(error)
-        }
-        next(null, results)
+    pool.query(read_project_entries, project_id, (error, project_entries, fields) =>{
+        pool.query(read_project_name, project_id, (error, project_name, fields)=>{
+            pool.query(read_students, project_id, (error, student, fields)=>{
+
+                 //if error pass to callback function
+                if (error){
+                    next(error)
+                }
+                next(null, project_entries, project_name, student)
+            })
+        })
     })
 
     return
