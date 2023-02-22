@@ -1,0 +1,101 @@
+<!-- project-update.hbs-->
+
+{{!-- Breadcrumb Navigation Bar --}}
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb m-2">
+        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Project</li>
+    </ul>
+</nav>
+{{!-- 
+<h2>Edit Project</h2>
+<table id="project-table">
+
+    <thead>
+        <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Project Type</th>
+            <th>Project Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each userData}}
+        <tr data-value={{this.IDProjects}}>
+            <td>{{this.IDProjects}}</td>
+            <td>{{this.ProjectName}}</td>
+            <td>{{this.ProjectType}}</td>
+            <td>{{this.ProjectDescription}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{#each userData}}
+<form id="edit-project" method="POST" action="/projects/{{this.IDProjects}}">
+
+    <fieldset class="fields">
+        <legend><strong>Add Project</strong></legend>
+
+        <label for="ProjectName"> Project Name </label>
+        <input type="text" name="ProjectName" id="ProjectName" placeholder="Name" value="{{this.ProjectName}}">
+        <input type="hidden" name="ProjectType" value="Image & Geo">
+        <label> Project Description </label>
+        <textarea name="ProjectDescription" id="ProjectDescription" cols="30"
+            rows="5">{{this.ProjectDescription}}</textarea>
+        <input type="hidden" name="ProjectImage" value="blackberry.jpg">
+
+        <div>
+            <button>Submit</button>
+        </div>
+    </fieldset>
+
+</form>
+{{/each}} --}}
+
+<div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-3 align-items-center rounded-3 border shadow-lg">
+        {{#each userData}}
+        <div class="d-flex justify-content-between">
+            <h1 class="" data-id="{{this.ProjectID}}">{{this.ProjectName}}</h1>
+            <button class="btn btn-dark rounded-pill" id="editProjectBtn" data-edit="false">Edit</button>
+        </div>
+        <div class="row justify-content-left">
+            <div class="col-md-5 mx-2 my-5">
+                <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M66.6667 233.333H233.333C236.667 233.333 239.167 231.806 240.833 228.75C242.5 225.694 242.222 222.778 240 220L194.167 158.75C192.5 156.528 190.278 155.417 187.5 155.417C184.722 155.417 182.5 156.528 180.833 158.75L137.5 216.667L106.667 175.417C105 173.194 102.778 172.083 100 172.083C97.2223 172.083 95 173.194 93.3334 175.417L60 220C57.7778 222.778 57.5 225.694 59.1667 228.75C60.8334 231.806 63.3334 233.333 66.6667 233.333ZM33.3334 300C24.1667 300 16.3167 296.739 9.78336 290.217C3.25003 283.694 -0.0110828 275.844 2.82966e-05 266.667V33.3334C2.82966e-05 24.1667 3.2667 16.3167 9.80003 9.78336C16.3334 3.25003 24.1778 -0.0110828 33.3334 2.82966e-05H266.667C275.833 2.82966e-05 283.683 3.26669 290.217 9.80002C296.75 16.3334 300.011 24.1778 300 33.3334V266.667C300 275.833 296.733 283.683 290.2 290.217C283.667 296.75 275.822 300.011 266.667 300H33.3334Z"
+                        fill="#BBBBBB" />
+                </svg>
+            </div>
+            <div id="ProjectDash" class="col-md-6 my-5 ">
+                <h2 class="">Project Type</h2>
+                <p>{{this.ProjectType}}</p>
+                <h2 class="">Project Description</h2>
+                <p>{{this.ProjectDescription}}</p>
+            </div>
+            <div id="ProjectDashEdit" class="col-md-6 mx-4 mt-3 mb-4" style="display: none;">
+                <label class="form-label mt-4" for="ProjectName"> Name </label>
+                <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name" value="{{this.ProjectName}}"/>
+                <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
+
+                <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation" />
+
+                <label class="form-label mt-4" for="ProjectDescription"> Description</label>
+                <textarea class="form-control" id="ProjectDescription" rows="6">{{this.ProjectDescription}}</textarea>
+                <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project
+                    description.
+                </div>
+
+                <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg" />
+                <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="updateProjectBtn" data-id="{{this.IDProjects}}">Submit</a>
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+</div>
+</div>
+
+  <script src="/js/project-dash.helpers.js"></script>

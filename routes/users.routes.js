@@ -15,7 +15,6 @@ const user_ctrl = require('../controllers/users.controllers')
 //CREATE
 router.post('/', (req, res, next) => {
     user_ctrl.createUser(req, (error, results)=>{
-
         if(error){
             res.status(403).send(error.sqlMessage)
             console.log(error)
