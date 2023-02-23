@@ -1,6 +1,6 @@
 <!-- header.hbs-->
 
-<header>
+{{!-- <header>
     <img class="logo" src="/images/logo.png" alt="logo">
     <nav>
         <ul class='topnav'>
@@ -21,4 +21,31 @@
     <a class="login" href="#"><button>Log In</button></a>
     <a class="logout" href="#"><button>Log Out</button></a>
 
-</header>
+</header> --}}
+
+{{!-- https://getbootstrap.com/docs/5.2/examples/headers/ --}}
+
+  <div class="container-fluid">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center col-sm-5 m-2 mb-md-0 text-dark text-decoration-none">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="50" fill="#00BF7D" />
+            <path
+                d="M66.608 35.016C66.352 35.368 66.096 35.64 65.84 35.832C65.584 36.024 65.232 36.12 64.784 36.12C64.304 36.12 63.776 35.928 63.2 35.544C62.624 35.128 61.904 34.68 61.04 34.2C60.208 33.72 59.168 33.288 57.92 32.904C56.704 32.488 55.2 32.28 53.408 32.28C51.008 32.28 48.896 32.712 47.072 33.576C45.248 34.408 43.712 35.624 42.464 37.224C41.248 38.824 40.32 40.76 39.68 43.032C39.072 45.304 38.768 47.848 38.768 50.664C38.768 53.608 39.104 56.232 39.776 58.536C40.448 60.808 41.392 62.728 42.608 64.296C43.856 65.832 45.344 67.016 47.072 67.848C48.832 68.648 50.8 69.048 52.976 69.048C55.056 69.048 56.768 68.808 58.112 68.328C59.456 67.816 60.56 67.256 61.424 66.648C62.32 66.04 63.056 65.496 63.632 65.016C64.24 64.504 64.832 64.248 65.408 64.248C66.112 64.248 66.656 64.52 67.04 65.064L69.44 68.184C68.384 69.496 67.184 70.616 65.84 71.544C64.496 72.472 63.04 73.256 61.472 73.896C59.936 74.504 58.32 74.952 56.624 75.24C54.928 75.528 53.2 75.672 51.44 75.672C48.4 75.672 45.568 75.112 42.944 73.992C40.352 72.872 38.096 71.256 36.176 69.144C34.256 67 32.752 64.376 31.664 61.272C30.576 58.168 30.032 54.632 30.032 50.664C30.032 47.048 30.528 43.704 31.52 40.632C32.544 37.56 34.016 34.92 35.936 32.712C37.888 30.472 40.272 28.728 43.088 27.48C45.936 26.232 49.2 25.608 52.88 25.608C56.304 25.608 59.312 26.168 61.904 27.288C64.528 28.376 66.848 29.928 68.864 31.944L66.608 35.016Z"
+                fill="white" />
+        </svg>
+        <span class="fs-1 m-4">Citizen Science</span>
+    </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link fs-5 px-2 link-secondary">Home</a></li>
+        <li><a href="/users" class="nav-link fs-5 link-dark">Students</a></li>
+        <li><a href="/projects" class="nav-link fs-5 link-dark">Projects</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary rounded-pill me-2">Login</button>
+        <button type="button" class="btn btn-primary rounded-pill">Sign-up</button>
+      </div>
+    </header>
+  </div>

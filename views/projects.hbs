@@ -1,4 +1,4 @@
-<!-- projects.hbs-->
+{{!-- <!-- projects.hbs-->
 
 <title>Projects</title>
 
@@ -59,4 +59,39 @@
       {{/each}}
     </tbody>
   </table>
+</div> --}}
+<div class="container-fluid">
+  <div class="d-flex flex-row-reverse p-3">
+    <a href="/projects/form" class="btn btn-outline-dark btn-lg rounded-pill px-4">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+      </svg>
+      Create Project </a>
+  </div>
+  <div class="d-flex flex-row p-5">
+    <h1 class="display-5 fw-bold">Hello, Jane.</h1>
+  </div>
+
+  <div class="row justify-content-left">
+    {{#each userData}}
+    <div class="col-lg-4 " id="{{this.IDProjects}}">
+      <div class="card mx-2 my-3">
+        <div class="d-flex flex-row-reverse px-2">
+          <div class="p-2">
+              <button type="button" class="btn btn-lg p-0 round-circle delete-button" title="delete" style="color: #bbbbbb;" data-name="{{this.ProjectName}}" data-id="{{this.IDProjects}}">&#215;</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{this.ProjectName}}</h5>
+          <p class="card-text">{{this.ProjectDescription}}</p>
+          <a href="/projects/{{this.IDProjects}}" class="btn btn-primary btn-dark rounded-pill">Project Details</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>
+
+<script src="/js/projects.helpers.js"></script>

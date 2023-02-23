@@ -8,6 +8,10 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.json())
 
 const projects_ctrl = require('../controllers/projects.controllers')
+//FORM 
+router.get('/form', (req, res, next) => {
+    res.render('project-form')
+})
 
 //CREATE
 router.post('/', (req, res, next) => {
@@ -53,7 +57,7 @@ router.get('/:id', (req, res, next) => {
         }
         const userData = results
         res.status(200)
-        res.render('project-update', {
+        res.render('project-dash', {
             title: 'Projects',
             userData
         })
@@ -61,7 +65,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 //UPDATE
-router.post('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
     projects_ctrl.updateProject(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -70,7 +74,6 @@ router.post('/:id', (req, res, next) => {
             return
         }
         res.status(200)
-        res.redirect("/projects")
     })
 })
 
