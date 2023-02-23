@@ -59,7 +59,8 @@
         {{#each userData}}
         <div class="d-flex justify-content-between">
             <h1 class="" data-id="{{this.ProjectID}}">{{this.ProjectName}}</h1>
-            <button class="btn btn-dark rounded-pill" id="editProjectBtn" data-edit="false">Edit</button>
+            <button class="btn btn-dark rounded-pill" id="editProjectBtn" >Edit</button>
+            <button class="btn btn-dark rounded-pill" id="updateProjectBtn" data-id="{{this.IDProjects}}" style="display: none;">Done</button>
         </div>
         <div class="row justify-content-left">
             <div class="col-md-5 mx-2 my-5">
@@ -76,20 +77,20 @@
                 <p>{{this.ProjectDescription}}</p>
             </div>
             <div id="ProjectDashEdit" class="col-md-6 mx-4 mt-3 mb-4" style="display: none;">
-                <label class="form-label mt-4" for="ProjectName"> Name </label>
+                <label class="form-label mt-4" for="ProjectName"> Project Name </label>
                 <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name" value="{{this.ProjectName}}"/>
                 <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
 
                 <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation" />
 
-                <label class="form-label mt-4" for="ProjectDescription"> Description</label>
+                <label class="form-label mt-4" for="ProjectDescription"> Project Description</label>
                 <textarea class="form-control" id="ProjectDescription" rows="6">{{this.ProjectDescription}}</textarea>
                 <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project
                     description.
                 </div>
 
                 <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg" />
-                <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="updateProjectBtn" data-id="{{this.IDProjects}}">Submit</a>
+    
             </div>
         </div>
 
