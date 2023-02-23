@@ -1,0 +1,80 @@
+<!-- project-update.hbs-->
+
+{{!-- Breadcrumb Navigation Bar --}}
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">All Project Data</li>
+    </ul>
+</nav>
+<h2>All Projects</h2>
+
+<form action="/project-entries" method="POST" id="add-entries">
+  <fieldset class="fields">
+    <legend><strong>Add Project Entry</strong></legend>
+    <br>
+    <label>Project <label>
+    <select>
+        {{#each name}}
+            <option id = "ProjectsFK" name = "ProjectsFK" value={{this.IDProjects}}>{{this.ProjectName}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <label>Student <label>
+    <select>
+        {{#each student_info}}
+            <option id = "UsersFK" name = "UsersFK"  value={{this.IDUsers}}>{{this.FirstName}} {{this.LastName}}</option>
+        {{/each}}
+    </select>
+
+    <br>
+    <label>Date <label>
+    <input type ="date" id="EntryDate" name ="EntryDate">
+    <br>
+    <label for="img">Select image </label>
+    <input type="file" id="EntryImage" name="EntryImage" accept="image/*">
+    
+    <br>
+    <label>Latitudinal Coordinate<label>
+    <input id="lat" type="text">
+     
+    <br>
+    <label>Longitudinal Coordinate <label>
+    <input id="long" type="text">
+    <br>
+
+    <div>
+      <button>Submit</button>
+    </div>
+  </fieldset>
+
+<br>
+<table id="project-table">
+
+    <thead>
+        <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Student ID</th>
+            <th>Student</th>
+            <th>Date</th>
+            <th>Project Image</th>
+            <th>(Latitude, Longitude)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.IDProjectEntries}}>
+            <td>{{this.ProjectsFK}}</td>
+            <td>{{this.ProjectName}}</td>
+            <td>{{this.UsersFK}}</td>
+            <td>{{this.FirstName}} {{this.LastName}}</td>
+            <td>{{this.EntryDate}}</td>
+            <td>{{this.EntryImage}}</td>
+            <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

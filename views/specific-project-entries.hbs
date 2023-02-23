@@ -1,0 +1,42 @@
+<!-- project-update.hbs-->
+
+{{!-- Breadcrumb Navigation Bar --}}
+{{#each name}}
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{this.ProjectName}}</li>
+    </ul>
+</nav>
+<h2>{{this.ProjectName}}</h2>
+{{/each}}
+
+
+<table id="specific-project-table">
+
+    <thead>
+        <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Student ID</th>
+            <th>Student</th>
+            <th>Date</th>
+            <th>Project Image</th>
+            <th>(Latitude, Longitude)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.IDProjectEntries}}>
+            <td>{{this.ProjectsFK}}</td>
+            <td>{{this.ProjectName}}</td>
+            <td>{{this.UsersFK}}</td>
+            <td>{{this.FirstName}} {{this.LastName}}</td>
+            <td>{{this.EntryDate}}</td>
+            <td>{{this.EntryImage}}</td>
+            <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

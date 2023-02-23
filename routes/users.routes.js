@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
             res.status(403).send(error.sqlMessage)
             console.log(error)
             next(error)
-            return
+            return res.redirect('/users')
         }
         res.status(201)
         res.redirect('/users')

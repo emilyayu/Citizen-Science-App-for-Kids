@@ -36,6 +36,7 @@
         <th>Project Name</th>
         <th>Project Type</th>
         <th>Project Description</th>
+        <th>Data</th>
         <th>Edit</th>
         <th>Delete</th>
 
@@ -49,6 +50,7 @@
         <td>{{this.ProjectName}}</td>
         <td>{{this.ProjectType}}</td>
         <td>{{this.ProjectDescription}}</td>
+        <td><a href="/project-entries/{{this.IDProjects}}" type="button"><i class="fa fa-table"></i></a></td>
         <td><a href="/projects/{{this.IDProjects}}" type="button"><i class="fa fa-edit"></i></a></td>
         <td><button class="trash" onclick="deleteProjectJS({{this.IDProjects}})"><i class="fa fa-trash-o"></i></button>
         </td>
