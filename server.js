@@ -49,6 +49,6 @@ app.use('/project-entries', projectEntries)
 
 
 const PORT = process.env.PORT || 8080;
-app.listen(config.app.port, () => {
-  console.log(`Launching ${config.app.name}. Server listening on port ${config.app.port}`)
+app.listen(PORT, () => {
+  console.log(`Launching ${config.app.name}. Server listening on port ${PORT}`)
 })

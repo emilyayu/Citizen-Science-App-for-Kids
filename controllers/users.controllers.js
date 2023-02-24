@@ -20,33 +20,40 @@ function createUser(req, next){
     const user = Object.values(req.body)
 
     if (!("FirstName" in req.body) || (req.body.FirstName === "")) {
-        throw new err.PropertyRequiredError("FirstName")
+        next(new err.PropertyRequiredError("FirstName"))
+        return
     }
 
     if (!("LastName" in req.body) || (req.body.LastName === "")) {
-        throw new err.PropertyRequiredError("LastName")
+        next(new err.PropertyRequiredError("LastName"))
+        return
     }
 
     if (!("Email" in req.body) || (req.body.Email === "")) {
-        throw new err.PropertyRequiredError("Email")
+        next(new err.PropertyRequiredError("Email"))
+        return
     }
 
     if (!(helper.IsString(req.body.FirstName))) {
-        throw new err.TypeError("string")
+        next(new err.TypeError("string"))
+        return
     }
 
     if (!(helper.IsString(req.body.LastName))) {
-        throw new err.TypeError("string")
+        next(new err.TypeError("string"))
+        return
     }
 
     if (!(helper.IsString(req.body.Email))) {
-        throw new err.TypeError("string")
+        next(new err.TypeError("string"))
+        return
     }
 
     validEmail = helper.ValidateEmail(email)
     
     if (!validEmail) {
-        throw new err.InvalidEmail(email)
+        next(new err.InvalidEmail(email))
+        return
     }
 
     // insert new user into database
@@ -83,9 +90,9 @@ function readUser(req, next){
     pool.query(read_user, user_id, (error, results, fields) =>{
         //if error pass to callback function
         if (error){
-            next(error)
+            return next(error)
         }
-        next(null, results)
+        return next(null, results)
     })
 
     return

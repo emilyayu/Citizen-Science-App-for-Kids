@@ -8,6 +8,13 @@ Uses as a model the example from CS340 Canvas Modules
   <div class="row justify-content-center rounded m-5 px-5 py-3" style="background-color: #eeeeee; width: 75%;">
   <h1>Enroll a Student.</h1>
   <form class="mt-3" action="/users" method="POST" id="add-student">
+  
+  {{#if message}}
+    <div style="text-align: center" class="alert alert-{{message.type}}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{message.intro}}</strong> {{message.message}}
+    </div>
+    {{/if}}
 
     <fieldset class="fields">
 
