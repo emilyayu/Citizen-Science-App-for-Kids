@@ -11,7 +11,6 @@ const user_ctrl = require('../controllers/users.controllers')
 
 router.use(bodyParser.urlencoded({extended: false}))
 router.use(bodyParser.json())
-router.use(cookieParser('secret'))
 router.use(session({
     cookie: {maxAge: null},
     secret: 'cookie_secret',
