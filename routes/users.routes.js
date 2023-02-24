@@ -12,7 +12,12 @@ const user_ctrl = require('../controllers/users.controllers')
 router.use(bodyParser.urlencoded({extended: false}))
 router.use(bodyParser.json())
 router.use(cookieParser('secret'))
-router.use(session({cookie: {maxAge: null}}))
+router.use(session({
+    cookie: {maxAge: null},
+    secret: 'cookie_secret',
+    resave: true,
+    saveUninitialized: true
+}))
 
 router.use((req, res, next)=> {
     res.locals.message = req.session.message
