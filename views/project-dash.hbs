@@ -4,7 +4,7 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb m-2">
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Edit Project</li>
+        <li class="breadcrumb-item active" aria-current="page">Project Description</li>
     </ul>
 </nav>
 {{!-- 
@@ -55,6 +55,21 @@
 {{/each}} --}}
 
 <div class="container my-5">
+    <div class="d-flex flex-row m-3">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-outline-dark active">
+                <input type="radio" name="options" id="option1" autocomplete="off" style="display: none;" checked>
+                Description
+            </label>
+            <a href="/project-entries/{{IDProjects}}"class="btn btn-outline-dark">
+                <input type="radio" name="options" id="option2" autocomplete="off" style="display: none;"> Entries
+            </a>
+            {{!-- <label class="btn btn-outline-dark">
+                <input type="radio" name="options" id="option3" autocomplete="off" style="display: none;"> Students
+            </label> --}}
+        </div>
+
+    </div>
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-3 align-items-center rounded-3 border shadow-lg">
         {{#each userData}}
         <div class="d-flex justify-content-between">
