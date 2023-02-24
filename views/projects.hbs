@@ -11,6 +11,14 @@
 <form action="/projects" method="POST" id="add-project">
 
   <fieldset class="fields">
+    
+    {{#if message}}
+    <div style="text-align: center" class="alert alert-{{message.type}}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{message.intro}}</strong> {{message.message}}
+    </div>
+    {{/if}}
+
     <legend><strong>Add Project</strong></legend>
 
     <label for="ProjectName"> Project Name </label>
