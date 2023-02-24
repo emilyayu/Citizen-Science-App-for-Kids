@@ -16,7 +16,7 @@ updBtn.addEventListener("click", (event) => {
   //package data for request
   const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage']
   const project_data = generateDataObj(project_values)
-
+  window.location.href = window.location.href;    // reloads the page. window.location.reload() doesn't work on chrome/firefox a lot of the times.
 
   //data validation
   if(!validateFormData(project_data)){
@@ -24,6 +24,8 @@ updBtn.addEventListener("click", (event) => {
   }
 
   sendPost(project_id, project_data)
+
+
 
 });
 
