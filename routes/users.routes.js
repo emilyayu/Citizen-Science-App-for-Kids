@@ -34,6 +34,7 @@ router.post('/', (req, res, next) => {
             type: 'danger',
             intro: 'Empty fields! ',
             message: 'Please fill out all fields to add a user'
+        }
         res.redirect('/users')
     } else {
         user_ctrl.createUser(req, (error, results)=>{
