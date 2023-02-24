@@ -8,6 +8,10 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const err = require('../error_helper')
 const projects_ctrl = require('../controllers/projects.controllers')
+//FORM 
+router.get('/form', (req, res, next) => {
+    res.render('project-form')
+})
 
 router.use(bodyParser.urlencoded({extended: false}))
 router.use(bodyParser.json())
@@ -74,7 +78,7 @@ router.get('/:id', (req, res, next) => {
         }
         const userData = results
         res.status(200)
-        res.render('project-update', {
+        res.render('project-dash', {
             title: 'Projects',
             userData
         })
@@ -82,7 +86,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 //UPDATE
-router.post('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
     projects_ctrl.updateProject(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -91,7 +95,6 @@ router.post('/:id', (req, res, next) => {
             res.redirect('/projects')
         }
         res.status(200)
-        res.redirect("/projects")
     })
 })
 

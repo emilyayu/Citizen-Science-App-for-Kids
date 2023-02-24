@@ -18,6 +18,9 @@ const handlebars = exphbs.create({ extname: '.hbs',});
 app.engine('.hbs', handlebars.engine);
 app.set('view engine', 'hbs')
 
+//bootstrap
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 //location of your views folder
 app.set('views', __dirname + '/views');
 
@@ -40,6 +43,8 @@ app.use('/users', users)
 
 // Projects Page
 app.use('/projects', projects)
+
+// ProjectEntries Page
 app.use('/project-entries', projectEntries)
 
 

@@ -6,6 +6,7 @@ const express = require('express')
 const router = express.Router()
 const Multer = require('multer');
 
+
 // Multer is required to process file uploads and make them available via
 // req.files.
 const multer = Multer({
@@ -40,42 +41,45 @@ router.post('/', multer.single('EntryImage'), (req, res, next) => {
     })
 })
 
+
 //READ ALL 
 router.get('/', (req, res, next) => {
-    project_ent_ctrl.readAllProjectEntries((error, results)=>{
+
+    project_ent_ctrl.readAllProjectEntries((error, project_entries, project_name, student)=>{
         if(error){
             res.status(400).send('get all project entries error')
             console.log(error)
             next(error)
             return
         }
-        res.status(200).json(results)
-    })
+        console.log("LINE53 - router",project_entries)
+        const data = project_entries
+        const name = project_name
+        const student_info = student
+        res.render('project-entries',
+            {data, name, student_info})
+    })        
+    res.status(200)
+
 })
 
 //READ ONE PROJECT'S ENTRIES
-router.get('/projects/:project_id', (req, res, next) => {
-    project_ent_ctrl.readProjectEntries(req, (error, results)=>{
-        if(error){
-            res.status(400).send('get one project entry error')
-            console.log(error)
-            next(error)
-            return
-        }
-        res.status(200).json(results)
-    })
-})
+router.get('/:project_id', (req, res, next) => {
 
-//READ ONE
-router.get('/:id', (req, res, next) => {
-    project_ent_ctrl.readProjectEntry(req, (error, results)=>{
+    project_ent_ctrl.readProjectEntries(req, (error, project_entries, project_name, student)=>{
+
         if(error){
             res.status(400).send('get one project entry error')
             console.log(error)
             next(error)
             return
         }
-        res.status(200).json(results)
+        const data = project_entries
+        const name = project_name
+        const student_info = student
+        res.render('specific-project-entries',
+            {data, name, student_info})
+        res.status(200)
     })
 })
 

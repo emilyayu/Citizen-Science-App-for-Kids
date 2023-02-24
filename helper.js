@@ -81,8 +81,6 @@ function getPublicUrl(req){
     // });
 
     // blobStream.end(req.file.buffer);
-
-
     //Take file from uploads folder & save it in cloud storage
     //Return the image url for accessing from the bucket
     const image_url = 'www.gcloud-bucket.' + req.file.originalname
