@@ -22,6 +22,12 @@ router.use(bodyParser.json())
 
 const project_ent_ctrl= require('../controllers/project-entries.controllers')
 
+//FORM 
+router.get('/form/:id', (req, res, next) => {
+    const userData = {IDProjects: req.params.id}
+    res.render('project-entries-form', userData)
+})
+
 //CREATE
 router.post('/', multer.single('EntryImage'), (req, res, next) => {
     project_ent_ctrl.createProjectEntry(req, (error, results)=>{
@@ -74,11 +80,17 @@ router.get('/:project_id', (req, res, next) => {
             next(error)
             return
         }
+        
         const data = project_entries
         const name = project_name
         const student_info = student
         res.render('specific-project-entries',
-            {data, name, student_info})
+            {   
+                data, 
+                name, 
+                student_info, 
+                ProjectsFK: name[0].IDProjects
+            })
         res.status(200)
     })
 })

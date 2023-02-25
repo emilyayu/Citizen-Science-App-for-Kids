@@ -84,7 +84,8 @@ router.get('/:id', (req, res, next) => {
         res.status(200)
         res.render('project-dash', {
             title: 'Projects',
-            userData
+            userData,
+            IDProjects: userData[0].IDProjects
         })
     })
 })
