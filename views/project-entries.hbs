@@ -61,7 +61,6 @@
             <th>Date</th>
             <th>Project Image</th>
             <th>(Latitude, Longitude)</th>
-            <th>Delete</th>
         </tr>
     </thead>
 
@@ -75,10 +74,7 @@
             <td>{{this.EntryDate}}</td>
             <td>{{this.EntryImage}}</td>
             <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
-            <td><button class="trash" onclick="deleteEntriesJS({{this.IDProjectEntries}})"><i class="fa fa-trash-o"></i></button>
         </tr>
         {{/each}}
     </tbody>
     </table>
-    
-    <script src="/js/projectentries.helpers.js"></script>
