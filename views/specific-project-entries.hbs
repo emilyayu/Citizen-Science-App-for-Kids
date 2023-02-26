@@ -1,9 +1,13 @@
 <!-- project-update.hbs-->
 
+<script src="\js\specific-project-entries.helper.js"></script>
+
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb m-2">
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Project Entries</li>
+        {{#each data}}
+        <li class="breadcrumb-item active" aria-current="page">{{this.ProjectName}} Project Details</li>
+        {{/each}}
     </ul>
 </nav>
 <div class="container my-5">
@@ -43,6 +47,8 @@
                         <th scope="col">Date</th>
                         <th scope="col">Project Image</th>
                         <th scope="col">(Latitude, Longitude)</th>
+                        <th>Delete</th>
+
                     </tr>
                 </thead>
 
@@ -57,6 +63,8 @@
                         <td>{{this.EntryDate}}</td>
                         <td>{{this.EntryImage}}</td>
                         <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
+                        <td><button class="trash" onclick="deleteEntriesJS({{this.IDProjectEntries}})"><i class="fa fa-trash-o"></i></button>
+
                     </tr>
                     {{/each}}
                 </tbody>
@@ -64,3 +72,4 @@
         </div>
     </div>
 </div>
+
