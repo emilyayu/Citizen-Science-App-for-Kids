@@ -18,11 +18,6 @@ delBtns.forEach((btn) => {
 })
 
 
-
-
-
-
-
 function sendDeleteReq(IDProject){
   let link = '/projects/'+ IDProject;
   let data = {

@@ -31,7 +31,6 @@ process.on('uncaughtException', function(err) {
 
 //CREATE
 router.post('/', (req, res, next) => {
-
     // blocking window pop up for missing fields
     if (req.body.FirstName === "" || req.body.LastName === "" || req.body.Email === ""){
         req.session.message = {

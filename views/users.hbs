@@ -6,36 +6,38 @@ Uses as a model the example from CS340 Canvas Modules
   <!-- Add a new Student to the Database -->
   
   <div class="row justify-content-center rounded m-5 px-5 py-3" style="background-color: #eeeeee; width: 75%;">
-  <h1>Enroll a Student.</h1>
-  <form class="mt-3" action="/users" method="POST" id="add-student">
+    <h1>Enroll a Student.</h1>
   
-  {{#if message}}
+    {{#if message}}
     <div style="text-align: center" class="alert alert-{{message.type}}">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <strong>{{message.intro}}</strong> {{message.message}}
     </div>
     {{/if}}
-
-    <fieldset class="fields">
-
-      <label class="form-label mt-4" for="FirstName"> First Name </label>
-      <input class="form-control" type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
-      <label class="form-label mt-4"> Last Name </label>
-      <input class="form-control" type="text" name="LastName" id="LastName" placeholder="Enter Last Name">
-      <label class="form-label mt-4"> Email </label>
-      <input class="form-control" type="text" name="Email" id="Email" placeholder="Enter Student's Email">
-      <input type="hidden" name="IsTeacher" value=0>
-
-      <div>
-        <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" >Submit</button>
-      </div>
-    </fieldset>
-
-  </form>
+  
+    <label class="form-label mt-4" for="FirstName"> First Name </label>
+    <input class="form-control" type="text" name="FirstName" id="FirstName" placeholder="Enter First Name">
+    <div id="project-name-err" style="color: red; display: none;">Please provide a valid first name.</div>
+  
+    <label class="form-label mt-4"> Last Name </label>
+    <input class="form-control" type="text" name="LastName" id="LastName" placeholder="Enter Last Name">
+    <div id="project-name-err" style="color: red; display: none;">Please provide a valid last name.</div>
+  
+    <label class="form-label mt-4"> Email </label>
+    <input class="form-control" type="email" name="Email" id="Email" placeholder="Enter Student's Email">
+    <div id="project-name-err" style="color: red; display: none;">Please provide a valid email.</div>
+  
+    <input type="hidden" name="IsTeacher" id="IsTeacher" value=0>
+  
+    <div>
+      <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addStudentBtn">Submit</button>
+    </div>
+  
+  
   </div>
   <div class="row justify-content-center m-5">
     <table class="table table-striped" id="student-table">
-
+  
       <thead>
         <tr>
           <th scope="col">Student ID</th>
@@ -66,3 +68,19 @@ Uses as a model the example from CS340 Canvas Modules
   </div>
 </div>
 <script src="/js/users.helpers.js"></script>
+
+
+                    {{!-- <label class="form-label mt-4" for="ProjectName"> Name </label>
+                    <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name"/>
+                    <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
+
+                    <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation"/>
+
+                    <label class="form-label mt-4" for="ProjectDescription"> Description</label>
+                    <textarea class="form-control" id="ProjectDescription" rows="3" >Enter a description</textarea>
+                    <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project description.</div>
+
+                    <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg"/>
+                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addProjectBtn" >Submit</a> --}}
+                    {{!-- <label class="form-label" for="ProjectImage" >Upload Image &#40;PNG, JPG&#41;</label>
+                    <input class="form-control form-control-md mt-1" type="file" accept=".jpg,.png"> --}}
