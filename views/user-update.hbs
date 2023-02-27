@@ -39,24 +39,33 @@
   {{#each userData}}
 
   <div class="row justify-content-center rounded m-5 px-5 py-3" style="background-color: #eeeeee; width: 75%;">
-  <form id="edit-student" method="POST" action="/users/{{this.IDUser}}">
+  {{!-- <form id="edit-student" method="POST" action="/users/{{this.IDUser}}"> --}}
 
     <fieldset class="fields">
       <legend><strong>Edit Student</strong></legend>
 
       <label class="form-label mt-4" for="FirstName"> First Name </label>
       <input class="form-control" type="text" name="FirstName" id="FirstName" value={{this.FirstName}}>
+      <div id="project-name-err" style="color: red; display: none;">Please provide a valid first name.</div>
+
       <label class="form-label mt-4"> Last Name </label>
       <input class="form-control" type="text" name="LastName" id="LastName" value={{this.LastName}}>
+      <div id="project-name-err" style="color: red; display: none;">Please provide a valid last name.</div>
+
       <label class="form-label mt-4"> Email </label>
       <input class="form-control" type="text" name="Email" id="Email" value={{this.Email}}>
-      <input type="hidden" name="IsTeacher" value=0>
-      <p></p>
+      <div id="project-name-err" style="color: red; display: none;">Please provide a valid email.</div>
+
+      <input type="hidden" name="IsTeacher" id="IsTeacher" value=0>
+
       <div>
-        <button class="btn btn-md btn-dark rounded-pill mt-4 px-5"> Submit </button>
+        <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="updateUserBtn" data-id="{{this.IDUser}}"> Submit {{this.IDUser}}</button>
       </div>
-    </fieldset>
-  </form>
+    {{!-- </fieldset> --}}
+  {{!-- </form> --}}
   </div>
   {{/each}}
 </div>
+
+<script src="/js/validation.helpers.js"></script>
+<script  src="/js/user-update.helpers.js"></script>

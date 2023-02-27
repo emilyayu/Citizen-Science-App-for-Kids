@@ -98,7 +98,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 //UPDATE
-router.post('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
     user_ctrl.updateUser(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -107,7 +107,7 @@ router.post('/:id', (req, res, next) => {
             res.redirect('/users')
         }
         res.status(200)
-        res.redirect("/users")
+        // res.redirect("/users")
     })
 })
 

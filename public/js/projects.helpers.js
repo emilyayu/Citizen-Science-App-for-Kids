@@ -1,7 +1,5 @@
 
 
-
-
 //Submit Project Event
 const delBtns = document.querySelectorAll('.delete-button')
 

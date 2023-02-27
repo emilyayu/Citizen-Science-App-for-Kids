@@ -4,7 +4,6 @@
 // Source: Email Validation regex example
 // https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
 
-
 //Submit user Event
 const addBtn = document.getElementById('addStudentBtn')
 addBtn.addEventListener("click", () => {
@@ -13,7 +12,6 @@ addBtn.addEventListener("click", () => {
   const user_values = ['FirstName', 'LastName', 'Email', 'IsTeacher']
   const user_data = generateDataObj(user_values)
 
-  
   //data validation
   if(!validateFormData(user_data)){
     return
@@ -43,55 +41,6 @@ emailInput.addEventListener("input", (event) => {
 
 });
 
-//generate js object with values from the form
-function generateDataObj(values){
-  let user = {}
-  values.forEach(element => {
-    user[element] = document.getElementById(element).value
-  })
-
-  return user
-}
-
-//check for empty values in object properties
-function validateFormData(data){
-  let isValid = true
-
-  for(const property in data){
-    if(data[property] == ''){
-      showInputError(property)
-      isValid = false
-    }
-
-    if(property == 'Email'){
-      if(!ValidateEmail(data[property])){
-        showInputError(property)
-        isValid = false
-      }
-      
-    }
-  }
-  return isValid
-}
-
-
-function ValidateEmail(email){
-  return email.match(
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
-}
-
-
-function showInputError(property){
-  const err_message = document.getElementById(property).nextElementSibling
-  err_message.style.display = ''
-
-}
-
-function hideInputError(property){
-  const err_message = property.nextElementSibling
-  err_message.style.display = 'none'
-}
 
 //send http post request with data to the server
 function sendPost(data){
@@ -137,3 +86,4 @@ function deleteRow(IDUser){
     }
 
 }
+
