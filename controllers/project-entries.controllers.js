@@ -32,18 +32,24 @@ const read_project_entry= `SELECT ProjectEntries.IDProjectEntries, ProjectEntrie
 // const read_project_entry= 'SELECT * FROM ProjectEntries WHERE IDProjectEntries = ?'
 const read_students= 'SELECT * FROM Users WHERE IsTeacher = 0'
 
+
+
 const update_project_entry = 'UPDATE ProjectEntries SET EntryImage = ?, EntryLatLong = ST_GeomFromText(?, 4326) WHERE IDProjectEntries = ?'
 const delete_project_entry = 'DELETE FROM ProjectEntries WHERE IDProjectEntries = ?'
 
 //generate list of students for project-entry form
 function getStudents(req, next){
+    project_id = req.params.id
     //list students
-    pool.query(read_students, (error, results, fields) =>{
-        //if error pass to callback function
-        if (error){
-            next(error)
-        }
-        next(null, results)
+    pool.query(read_students, (error, student, fields) =>{
+        pool.query(read_project_name, project_id,  (error, project, fields)=>{
+
+            //if error pass to callback function
+            if (error){
+                next(error)
+            }
+            next(null, student, project)
+        })
     })
 }
 

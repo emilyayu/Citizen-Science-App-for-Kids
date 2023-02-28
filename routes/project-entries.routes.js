@@ -22,42 +22,25 @@ router.use(bodyParser.json())
 
 const project_ent_ctrl= require('../controllers/project-entries.controllers')
 
+
+
+// Specific project entries
 //FORM 
 router.get('/form/:id', (req, res, next) => {
 
-    project_ent_ctrl.getStudents(req, (error, results)=>{
+    project_ent_ctrl.getStudents(req, (error, students, project)=>{
         if(error){
             res.status(400).send('get students for select menu error')
             console.log(error)
             next(error)
             return
         }
-    
-        const userData = results
+
         res.render('project-entries-form',
             {   IDProjects: req.params.id,
-                userData,
+                students, 
+                project
             })
-    })
-})
-
-//CREATE
-router.post('/', multer.single('EntryImage'), (req, res, next) => {
-    
-    project_ent_ctrl.createProjectEntry(req, (error, results)=>{
-        if (!req.file) {
-            res.status(400).send('No file uploaded.');
-            return;
-        }
-
-        if(error){
-            res.status(400).send('create project entry error')
-            console.log(error)
-            next(error)
-            return
-        }
-        res.redirect(':/id')
-        res.status(201)
     })
 })
 
@@ -105,6 +88,36 @@ router.post('/:project_id/form/:project_entry', multer.single('EntryImage'), (re
     })
 })
 
+
+
+
+
+
+
+// General Project-Entries
+
+//CREATE
+router.post('/', multer.single('EntryImage'), (req, res, next) => {
+    
+    project_ent_ctrl.createProjectEntry(req, (error, results)=>{
+        if (!req.file) {
+            res.status(400).send('No file uploaded.');
+            return;
+        }
+
+        if(error){
+            res.status(400).send('create project entry error')
+            console.log(error)
+            next(error)
+            return
+        }
+        res.redirect(':/id')
+        res.status(201)
+    })
+})
+
+
+
 //READ ALL 
 router.get('/', (req, res, next) => {
 
@@ -138,6 +151,7 @@ router.get('/:project_id', (req, res, next) => {
         }
         
         const data = project_entries
+        console.log(data)
         const name = project_name
         const student_info = student
         res.render('specific-project-entries',

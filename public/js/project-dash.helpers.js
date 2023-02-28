@@ -73,7 +73,7 @@ function sendPost(id, data){
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8", 
     success: function() {
-        window.location.reload(true)
+        // window.location.redirect(true)
     }
   });
 }

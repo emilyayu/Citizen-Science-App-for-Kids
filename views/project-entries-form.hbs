@@ -2,8 +2,9 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb  m-2">
         <li class="breadcrumb-item"><a href="/projects"> Projects </a></li>
-        <p>{{name.IDProjects}}</p>
-        <li class="breadcrumb-item"><a href="/project-entries/{{IDProjects}}">{{ProjectName}}</a></li> 
+        {{#each project}}
+        <li class="breadcrumb-item"><a href="/project-entries/{{IDProjects}}"> {{this.ProjectName}}</a></li> 
+        {{/each}}
         <li class="breadcrumb-item active" aria-current="page">Create Entry</li>
       </ol>
     </nav>
