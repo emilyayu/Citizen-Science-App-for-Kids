@@ -58,7 +58,6 @@ router.get('/:project_id/form/:project_entry', (req, res, next) => {
         // const entry = entry
         const name = project_name
         const student_info = student
-        // console.l og("ROUTEER STUDENT", student)
         res.render('update-entry-form',
             {   
                 entry,
@@ -151,7 +150,7 @@ router.get('/:project_id', (req, res, next) => {
         }
         
         const data = project_entries
-        console.log(data)
+        // console.log(data)
         const name = project_name
         const student_info = student
         res.render('specific-project-entries',

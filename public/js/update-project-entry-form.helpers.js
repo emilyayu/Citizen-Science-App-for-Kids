@@ -7,7 +7,7 @@
 //Submit user Event
 const editBtn = document.getElementById('EditEntryBtn')
 editBtn.addEventListener("click", (event) => {
-  console.log(editBtn.dataset)
+  // console.log(editBtn.dataset)
   const project_id = editBtn.dataset.projectid
   const entry_id = editBtn.dataset.entryid
 
@@ -116,7 +116,7 @@ function sendPost(project_id, entry_id, form){
     processData: false, 
     contentType: false,
     success: function() {
-      console.log("LINE120")
+      // console.log("LINE120")
       window.location.href = "/project-entries/" + project_id 
     }
   });
