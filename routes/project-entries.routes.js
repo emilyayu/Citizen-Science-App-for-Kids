@@ -56,11 +56,54 @@ router.post('/', multer.single('EntryImage'), (req, res, next) => {
             next(error)
             return
         }
-
+        res.redirect(':/id')
         res.status(201)
     })
 })
 
+//READ SPECIFIC PROJECT ENTRY FOR EDIT
+router.get('/:project_id/form/:project_entry', (req, res, next) => {
+
+    project_ent_ctrl.readEntry(req, (error, entry, project_name, student)=>{
+
+        if(error){
+            res.status(400).send('get one project entry error')
+            console.log(error)
+            next(error)
+            return
+        }
+        // const entry = entry
+        const name = project_name
+        const student_info = student
+        // console.l og("ROUTEER STUDENT", student)
+        res.render('update-entry-form',
+            {   
+                entry,
+                name,
+                student_info, 
+                IDProjects: name[0].IDProjects,
+                ProjectName: name[0].ProjectName
+
+            })
+        res.status(200)
+    })
+})
+
+//UPDATE SPECIFIC ENTRY
+router.post('/:project_id/form/:project_entry', multer.single('EntryImage'), (req, res, next) => {
+    project_id = req.params.project_id
+    project_ent_ctrl.updateProjectEntry(req, (error, results)=>{
+        if(error){
+            res.status(400).send('update project entry error')
+            console.log(error)
+            next(error)
+            return
+        }
+        url = '/project-entries/'+ project_id
+        res.redirect(url)
+        res.status(200)
+    })
+})
 
 //READ ALL 
 router.get('/', (req, res, next) => {
@@ -72,7 +115,6 @@ router.get('/', (req, res, next) => {
             next(error)
             return
         }
-        console.log("LINE53 - router",project_entries)
         const data = project_entries
         const name = project_name
         const student_info = student

@@ -2,49 +2,51 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb  m-2">
         <li class="breadcrumb-item"><a href="/projects"> Projects </a></li>
-        <p>{{name.IDProjects}}</p>
-        <li class="breadcrumb-item"><a href="/project-entries/{{IDProjects}}">{{ProjectName}}</a></li> 
-        <li class="breadcrumb-item active" aria-current="page">Create Entry</li>
+        <li class="breadcrumb-item"><a href="/project-entries/{{IDProjects}}"> {{ProjectName}}</a></li> 
+        <li class="breadcrumb-item active" aria-current="page">Edit Entry</li>
       </ol>
     </nav>
     <div class="row justify-content-center">
         <div class="col-lg-8 mt-5">
-            <h3>Create a project entry.</h3>
+            <h3>Edit a project entry.</h3>
             <div class="card " style="background-color: #f5f5f5; border: none;">
                 <div class="card-body">
                     
                     <input type="hidden" name="ProjectFK" id="ProjectsFK" value="{{IDProjects}}" />
                     
-                    <label class="form-label mt-4" for="ProjectDescription"> Student </label>
+                    <label class="form-label mt-4" for="ProjectDescription"> Student (Cannot Update)</label>
                     <select id="UsersFK" class="form-select" aria-label="Default select example">
-                        <option selected value=""> Select a student</option>
-                        {{#each userData}}
-                            <option value="{{this.IDUser}}">{{this.FirstName}} {{this.LastName}}</option>
+                        {{#each entry}}
+                        <option selected value={{this.UsersFK}}>{{this.FirstName}} {{this.LastName}}</option>
                         {{/each}}
+
                     </select>
                     <div id="entry-student-err" style="color: red; display: none;">Please select a student.</div>
-                    
+                    {{#each entry}}
                     <div class="form-group row">
                         <div class="col">
                             <label class="form-label mt-4" for="EntryLatitude"> Latitude &#40;-90, 90&#41; </label>
-                            <input type="number" class="form-control" id="EntryLatitude" placeholder="Enter your Latitude"/>
+
+                            <input type="number" class="form-control" id="EntryLatitude" value="{{this.EntryLatLong.y}}"/>
                             <div id="project-name-err" style="color: red; display: none;">Please provide a valid latitude.</div>
                         </div>
                         <div class="col">
                             <label class="form-label mt-4" for="EntryLongitude"> Longitude &#40;-180, 180&#41;</label>
-                            <input type="number" class="form-control" id="EntryLongitude" placeholder="Enter your Longitude"/>
+                            <input type="number" class="form-control" id="EntryLongitude" value="{{this.EntryLatLong.x}}"/>
                             <div id="project-name-err" style="color: red; display: none;">Please provide a valid Longitude.</div>
                         </div>
                     </div>
+                    {{/each}}
+
 
                     <label class="form-label mt-4" for="ProjectImage">Upload Image &#40;PNG, JPG&#41;</label>
                     <input id="EntryImage" class="form-control form-control-md mt-1" type="file" accept=".jpg,.png">
-                    <div id="project-name-err" style="color: red; display: none;">Please provide a valid image.</div>
+                     <div id="project-name-err" style="color: red; display: none;">Please provide a valid image.</div>
 
                     {{!-- <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg" /> --}}
-
-                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addEntryBtn" data-id="{{IDProjects}}">Submit</a>
-
+                    {{#each entry}}
+                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="EditEntryBtn" data-projectid="{{this.ProjectsFK}}" data-entryid="{{this.IDProjectEntries}}">Submit</a>
+                    {{/each}}
                 </div>
             </div>
         </div>
@@ -52,4 +54,4 @@
 </div>
 
 <script src="/js/validation.helpers.js"></script>
-<script  src="/js/project-entries-form.helpers.js"></script>
+<script  src="/js/update-project-entry-form.helpers.js"></script>

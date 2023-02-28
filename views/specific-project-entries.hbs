@@ -3,7 +3,7 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb m-2">
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ProjectName}}</li>
+        <li class="breadcrumb-item active" aria-current="page"></li>
         
     </ul>
 </nav>
@@ -44,6 +44,7 @@
                         <th scope="col">Date</th>
                         <th scope="col">Project Image</th>
                         <th scope="col">(Latitude, Longitude)</th>
+                        <th>Edit</th>
                         <th>Delete</th>
 
                     </tr>
@@ -60,6 +61,7 @@
                         <td>{{this.EntryDate}}</td>
                         <td>{{this.EntryImage}}</td>
                         <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
+                        <td><a href="/project-entries/{{this.ProjectsFK}}/form/{{this.IDProjectEntries}}" type="button"><i class="fa fa-edit"></i></a></td>
                         <td><button class="btn btn-dark rounded-pill trash" onclick="deleteEntriesJS({{this.IDProjectEntries}})"><i class="fa fa-trash-o"></i></button>
 
                     </tr>
