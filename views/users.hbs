@@ -40,26 +40,25 @@ Uses as a model the example from CS340 Canvas Modules
   
       <thead>
         <tr>
-          <th scope="col">Student ID</th>
+          {{!-- <th scope="col">Student ID</th> --}}
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
           <th scope="col">Email</th>
-
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
 
       <tbody>
         {{#each userData}}
         <tr data-value={{this.IDUser}}>
-          <th scope="row">{{this.IDUser}}</td>
+          {{!-- <th scope="row">{{this.IDUser}}</td> --}}
           <td>{{this.FirstName}}</td>
           <td>{{this.LastName}}</td>
           <td>{{this.Email}}</td>
           <td><a href="/users/{{this.IDUser}}" type="button"><i class="fa fa-edit"></i></a></td>
-          <td><button class="trash" onclick="deleteUserJS({{this.IDUser}})"><i class="fa fa-trash-o"></i></button>
+          <td><button class="btn btn-dark rounded-pill trash" onclick="deleteUserJS({{this.IDUser}})"><i class="fa fa-trash-o"></i></button>
           </td>
-
-          {{!-- <td><button onclick="getUserJS({{this.IDUser}})">Edit {{this.IDUser}}</button></td> --}}
 
         </tr>
         {{/each}}
@@ -70,19 +69,3 @@ Uses as a model the example from CS340 Canvas Modules
 {{!-- must stay in this order --}}
 <script src="/js/validation.helpers.js"></script>
 <script  src="/js/users.helpers.js"></script>
-
-
-                    {{!-- <label class="form-label mt-4" for="ProjectName"> Name </label>
-                    <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name"/>
-                    <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
-
-                    <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation"/>
-
-                    <label class="form-label mt-4" for="ProjectDescription"> Description</label>
-                    <textarea class="form-control" id="ProjectDescription" rows="3" >Enter a description</textarea>
-                    <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project description.</div>
-
-                    <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg"/>
-                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addProjectBtn" >Submit</a> --}}
-                    {{!-- <label class="form-label" for="ProjectImage" >Upload Image &#40;PNG, JPG&#41;</label>
-                    <input class="form-control form-control-md mt-1" type="file" accept=".jpg,.png"> --}}

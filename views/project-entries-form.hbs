@@ -12,36 +12,43 @@
             <div class="card " style="background-color: #f5f5f5; border: none;">
                 <div class="card-body">
                     
-                    <input type="hidden" name="ProjectFK" id="ProjectFK" value="{{IDProjects}}" />
+                    <input type="hidden" name="ProjectFK" id="ProjectsFK" value="{{IDProjects}}" />
                     
                     <label class="form-label mt-4" for="ProjectDescription"> Student </label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected> Select a student</option>
+                    <select id="UsersFK" class="form-select" aria-label="Default select example">
+                        <option selected value=""> Select a student</option>
                         {{#each userData}}
-                            <option value="{{this.UserFK}}">{{this.firstName}} {{this.LastName}}</option>
+                            <option value="{{this.IDUser}}">{{this.FirstName}} {{this.LastName}}</option>
                         {{/each}}
                     </select>
                     <div id="entry-student-err" style="color: red; display: none;">Please select a student.</div>
                     
                     <div class="form-group row">
                         <div class="col">
-                            <label class="form-label mt-4" for="EntryLatitude"> Latitude </label>
-                            <input type="text" class="form-control" id="EntryLatitude" placeholder="Enter your Latitude"/>
+                            <label class="form-label mt-4" for="EntryLatitude"> Latitude &#40;-90, 90&#41; </label>
+                            <input type="number" class="form-control" id="EntryLatitude" placeholder="Enter your Latitude"/>
                             <div id="project-name-err" style="color: red; display: none;">Please provide a valid latitude.</div>
                         </div>
                         <div class="col">
-                            <label class="form-label mt-4" for="EntryLatitude"> Longitude </label>
-                            <input type="text" class="form-control" id="EntryLongitude" placeholder="Enter your Longitude"/>
+                            <label class="form-label mt-4" for="EntryLongitude"> Longitude &#40;-180, 180&#41;</label>
+                            <input type="number" class="form-control" id="EntryLongitude" placeholder="Enter your Longitude"/>
                             <div id="project-name-err" style="color: red; display: none;">Please provide a valid Longitude.</div>
                         </div>
                     </div>
 
-                    <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg" />
-                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addProjectBtn">Submit</a>
-                        {{!-- <label class="form-label" for="ProjectImage">Upload Image &#40;PNG, JPG&#41;</label>
-                        <input class="form-control form-control-md mt-1" type="file" accept=".jpg,.png"> --}}
+                    <label class="form-label mt-4" for="ProjectImage">Upload Image &#40;PNG, JPG&#41;</label>
+                    <input id="EntryImage" class="form-control form-control-md mt-1" type="file" accept=".jpg,.png">
+                    <div id="project-name-err" style="color: red; display: none;">Please provide a valid image.</div>
+
+                    {{!-- <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg" /> --}}
+
+                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addEntryBtn" data-id="{{IDProjects}}">Submit</a>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="/js/validation.helpers.js"></script>
+<script  src="/js/project-entries-form.helpers.js"></script>
