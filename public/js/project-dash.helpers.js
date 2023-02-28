@@ -14,7 +14,7 @@ updBtn.addEventListener("click", (event) => {
   const project_id = event.target.dataset.id
 
   //package data for request
-  const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage']
+  const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage', 'ProjectInstructions']
   const project_data = generateDataObj(project_values)
 
   //data validation

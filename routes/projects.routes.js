@@ -30,8 +30,7 @@ router.use((req, res, next) => {
 
 //CREATE
 router.post('/', (req, res, next) => {
-
-    if (req.body.ProjectName === "" || req.body.ProjectType === "" || req.body.ProjectDescription === "") {
+    if (req.body.ProjectName === "" || req.body.ProjectType === "" || req.body.ProjectInstructions === "") {
         req.session.message = {
             type: 'danger',
             intro: 'Empty fields! ', 
@@ -99,6 +98,8 @@ router.put('/:id', (req, res, next) => {
             next(error)
             res.redirect('/projects')
         }
+        res.render('project-dash')
+
         res.status(200)
     })
 })

@@ -7,10 +7,12 @@ const err = require('../error_helper')
 
 //Project QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
-const create_project = 'INSERT INTO Projects (ProjectName, ProjectType, ProjectDescription, ProjectImage, AccessCode) VALUES (?, ?, ?, ?, ?)'
+const create_project = 'INSERT INTO Projects (ProjectName, ProjectType, ProjectDescription, ProjectImage, ProjectInstructions, AccessCode) VALUES (?, ?, ?, ?, ?, ?)'
 const read_projects = 'SELECT * FROM Projects'
-const read_project = 'SELECT * FROM Projects WHERE IDProjects = ?'
-const update_project = 'UPDATE Projects SET ProjectName = ?, ProjectType = ?, ProjectDescription = ?, ProjectImage = ? WHERE IDProjects = ?'
+const read_project = `SELECT * FROM Projects 
+                        WHERE IDProjects = ?`
+const update_project = `UPDATE Projects SET ProjectName = ?, ProjectType = ?, ProjectDescription = ?, ProjectImage = ?, ProjectInstructions = ?
+                            WHERE IDProjects = ?`
 const delete_project = 'DELETE FROM Projects WHERE IDProjects = ?'
 
 // CREATE
@@ -33,6 +35,9 @@ function createProject(req, next){
     if (!("ProjectImage" in req.body)) {
         throw new err.PropertyRequiredError("ProjectImage")
     }
+    if (!("ProjectInstructions" in req.body) || (req.body.ProjectInstructions === "")) {
+        throw new err.PropertyRequiredError("ProjectInstructions")
+    }
 
     project.push(helper.getAccessCode())
 
@@ -41,6 +46,7 @@ function createProject(req, next){
     //or storage access added to the project object!
 
     // insert new project into database
+    console.log(project)
     pool.query(create_project, project, (error, results, fields) =>{
         //if error pass to callback function
         if (error){

@@ -49,12 +49,15 @@
                 <p>{{this.ProjectType}}</p>
                 <h2 class="">Project Description</h2>
                 <p>{{this.ProjectDescription}}</p>
+                <h2 class="">Project Instructions</h2>
+                <p>{{this.ProjectInstructions}}</p>
             </div>
             <div id="ProjectDashEdit" class="col-md-6 mx-4 mt-3 mb-4" style="display: none;">
                 <label class="form-label mt-4" for="ProjectName"> Project Name </label>
                 <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name" value="{{this.ProjectName}}"/>
                 <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
-
+                <label class="form-label mt-4">Project Type</label>
+                <p>Image & Geolocation</p>
                 <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation" />
 
                 <label class="form-label mt-4" for="ProjectDescription"> Project Description</label>
@@ -63,6 +66,11 @@
                     description.
                 </div>
 
+                <label class="form-label mt-4" for="ProjectInstructions"> Project Instructions</label>
+                <textarea class="form-control" id="ProjectInstructions" rows="6">{{this.ProjectInstructions}}</textarea>
+                <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project
+                    description.
+                </div>
                 <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg" />
     
             </div>

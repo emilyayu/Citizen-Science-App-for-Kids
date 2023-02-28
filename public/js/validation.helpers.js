@@ -4,7 +4,9 @@
 //generate js object with values from the form
 function generateDataObj(values){
     let user = {}
+    console.log(values)
     values.forEach(element => {
+      console.log("HELPER - validation", element)
       user[element] = document.getElementById(element).value
     })
   

@@ -4,7 +4,7 @@ const addBtn = document.getElementById('addProjectBtn')
 addBtn.addEventListener("click", () => {
 
   //package data for request
-  const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage']
+  const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage', 'ProjectInstructions']
   const project_data = generateDataObj(project_values)
   
   //data validation
@@ -28,6 +28,12 @@ projectDescInput.addEventListener("input", (event) => {
   hideInputError(event.target)
 
 });
+const projectInstrucInput = document.getElementById('ProjectInstructions')
+projectDescInput.addEventListener("input", (event) => {
+  hideInputError(event.target)
+
+});
+
 
 
 //send http post request with data to the server
