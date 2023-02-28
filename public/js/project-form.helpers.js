@@ -7,7 +7,6 @@ addBtn.addEventListener("click", () => {
   const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage', 'ProjectInstructions']
   const project_data = generateDataObj(project_values)
   
-  console.log("HELPER - form", project_data)
   //data validation
   if(!validateFormData(project_data)){
     return
