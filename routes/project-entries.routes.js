@@ -24,12 +24,26 @@ const project_ent_ctrl= require('../controllers/project-entries.controllers')
 
 //FORM 
 router.get('/form/:id', (req, res, next) => {
-    const userData = {IDProjects: req.params.id}
-    res.render('project-entries-form', userData)
+
+    project_ent_ctrl.getStudents(req, (error, results)=>{
+        if(error){
+            res.status(400).send('get students for select menu error')
+            console.log(error)
+            next(error)
+            return
+        }
+    
+        const userData = results
+        res.render('project-entries-form',
+            {   IDProjects: req.params.id,
+                userData,
+            })
+    })
 })
 
 //CREATE
 router.post('/', multer.single('EntryImage'), (req, res, next) => {
+    
     project_ent_ctrl.createProjectEntry(req, (error, results)=>{
         if (!req.file) {
             res.status(400).send('No file uploaded.');
@@ -43,7 +57,7 @@ router.post('/', multer.single('EntryImage'), (req, res, next) => {
             return
         }
 
-        res.status(201).json(results)
+        res.status(201)
     })
 })
 
@@ -89,7 +103,8 @@ router.get('/:project_id', (req, res, next) => {
                 data, 
                 name, 
                 student_info, 
-                ProjectsFK: name[0].IDProjects
+                ProjectsFK: name[0].IDProjects,
+                ProjectName: name[0].ProjectName
             })
         res.status(200)
     })

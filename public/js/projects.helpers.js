@@ -1,7 +1,5 @@
 
 
-
-
 //Submit Project Event
 const delBtns = document.querySelectorAll('.delete-button')
 
@@ -18,11 +16,6 @@ delBtns.forEach((btn) => {
 })
 
 
-
-
-
-
-
 function sendDeleteReq(IDProject){
   let link = '/projects/'+ IDProject;
   let data = {
@@ -34,7 +27,7 @@ function sendDeleteReq(IDProject){
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8", 
     success: function(data) {
-      // window.location.reload();
+      window.location.reload();
     }
   });
 }
