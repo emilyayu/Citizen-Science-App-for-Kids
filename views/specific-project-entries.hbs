@@ -25,6 +25,11 @@
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-3 align-items-center rounded-3 border shadow-lg">
         <div class="d-flex justify-content-between p-4">
             <h1>Project Entries</h1>
+
+            <button class="btn btn-dark rounded-pill trash" id ="export">
+                Download CSV
+            </button>
+
             <a href="/project-entries/form/{{ProjectsFK}}" class="btn btn-outline-dark btn-lg rounded-pill  p-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg"
                     viewBox="0 0 16 16">
@@ -73,3 +78,5 @@
 </div>
 
 <script src="\js\specific-project-entries.helper.js"></script>
+<script src="\js\table_to_csv.js"></script>
+
