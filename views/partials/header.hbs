@@ -44,8 +44,12 @@
       </ul>
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary rounded-pill me-2">Login</button>
-        <button type="button" class="btn btn-primary rounded-pill">Sign-up</button>
+        {{#if userProfile}}
+          <a href="/logout" type="button" class="btn btn-outline-primary rounded-pill me-2">Logout</a>
+        {{else}}
+          <a href="/login" type="button" class="btn btn-outline-primary rounded-pill me-2">Login / Signup</a>
+        {{/if}}
+        {{!-- <button type="button" class="btn btn-primary rounded-pill">Sign-up</button> --}}
       </div>
     </header>
   </div>

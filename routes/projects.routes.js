@@ -8,6 +8,14 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const err = require('../error_helper')
 const projects_ctrl = require('../controllers/projects.controllers')
+const auth0continue = 'https://dev-kim7y4zkcaxzxlmr.us.auth0.com/continue?state='
+
+const { requiresAuth } = require('express-openid-connect')
+// const app = express
+// const { auth } = require('express-openid-connect')
+// login = express.Router()
+// app.use(auth(config.auth))
+
 //FORM 
 router.get('/form', (req, res, next) => {
     res.render('project-form')
@@ -27,6 +35,15 @@ router.use((req, res, next) => {
     delete req.session.message
     next()
 })
+
+// router.use((req, res) => {
+//     var state = req.query.state;
+//     console.log(state)
+//     var continueURL = auth0continue + state
+//     console.log(state, continueURL)
+//     res.redirect(continueURL)
+//     // console.log(state)
+// })
 
 //CREATE
 router.post('/', (req, res, next) => {
@@ -53,7 +70,9 @@ router.post('/', (req, res, next) => {
 })
 
 //READ ALL 
-router.get('/', (req, res, next) => {
+router.get('/', requiresAuth(), (req, res, next) => {
+    // userProfile = req.oidc.user
+    // console.log(userProfile)
     projects_ctrl.readProjects((error, results)=>{
         if(error){
             er = err.errorMessage(error.code)
@@ -66,7 +85,8 @@ router.get('/', (req, res, next) => {
         res.status(200)
         res.render('projects', {
             title: 'Projects',
-            userData
+            userData,
+            userProfile: req.oidc.user
         })
     })
 })
@@ -84,7 +104,8 @@ router.get('/:id', (req, res, next) => {
         res.status(200)
         res.render('project-dash', {
             title: 'Projects',
-            userData
+            userData,
+            userProfile: req.oidc.user
         })
     })
 })
