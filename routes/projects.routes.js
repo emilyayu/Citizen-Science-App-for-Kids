@@ -72,7 +72,7 @@ router.get('/', (req, res, next) => {
 })
 
 //READ PROJECT FROM ACCESS CODE 
-router.get('/:accesscode', (req, res, next) => {
+router.get('//accesscode/:accesscode', (req, res, next) => {
     projects_ctrl.readProjectsAccessCode(req, (error, results)=>{
         if(error){
             // er = err.errorMessage(error.code)
