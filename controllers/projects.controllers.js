@@ -10,7 +10,6 @@ const err = require('../error_helper')
 const create_project = 'INSERT INTO Projects (ProjectName, ProjectType, ProjectDescription, ProjectImage, AccessCode) VALUES (?, ?, ?, ?, ?)'
 const read_projects = 'SELECT * FROM Projects'
 const read_project = 'SELECT * FROM Projects WHERE IDProjects = ?'
-const read_project_access_code = 'SELECT * FROM Projects WHERE AccessCode = ?'
 const update_project = 'UPDATE Projects SET ProjectName = ?, ProjectType = ?, ProjectDescription = ?, ProjectImage = ? WHERE IDProjects = ?'
 const delete_project = 'DELETE FROM Projects WHERE IDProjects = ?'
 
@@ -54,6 +53,7 @@ function createProject(req, next){
     return
 }
 
+
 // READ ALL
 function readProjects(next){
     // list all projects from database
@@ -67,22 +67,6 @@ function readProjects(next){
 
     return
 }
-
-function readProjectsAccessCode(req, next){
-    const projectAccesCode = [req.params.accesscode]
-
-    // list all projects from database
-    pool.query(read_project_access_code, projectAccesCode, (error, results, fields) =>{
-        //if error pass to callback function
-        if (error){
-            next(error)
-        }
-        next(null, results)
-    })
-
-    return
-}
-
 
 // READ ONE
 function readProject(req, next){
@@ -141,6 +125,5 @@ module.exports ={
     readProjects,
     readProject,
     updateProject,
-    deleteProject,
-    readProjectsAccessCode
+    deleteProject
 }
