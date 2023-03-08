@@ -71,6 +71,25 @@ router.get('/', (req, res, next) => {
     })
 })
 
+//READ PROJECT FROM ACCESS CODE 
+router.get('/:accesscode', (req, res, next) => {
+    projects_ctrl.readProjectsAccessCode(req, (error, results)=>{
+        if(error){
+            // er = err.errorMessage(error.code)
+            res.status(403).send(error.sqlMessage)
+            next(error)
+            return
+        }
+        const userData = results
+
+        res.status(200)
+        res.render('projects', {
+            title: 'Projects',
+            userData
+        })
+    })
+})
+
 //READ ONE
 router.get('/:id', (req, res, next) => {
     projects_ctrl.readProject(req, (error, results)=>{
