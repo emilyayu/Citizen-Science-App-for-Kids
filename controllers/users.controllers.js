@@ -9,6 +9,8 @@ const helper = require("../helper")
 // Note: some places in the documentation use ` around table names -- may need to add this
 const create_user = 'INSERT INTO Users (FirstName, LastName, Email, IsTeacher) VALUES (?, ?, ?, ?)'
 const read_users = 'SELECT * FROM Users'
+const read_users_app = 'SELECT IDUser, FirstName, LastName FROM Users'
+
 const read_user = 'SELECT * FROM Users WHERE IDUser = ?'
 const update_user = 'UPDATE Users SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDUser = ?'
 const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
@@ -68,7 +70,19 @@ function createUser(req, next){
 
     return   
 }
+// READ ALL -- APP 
+function readUsers_app(next){
+    // list all users from database
+    pool.query(read_users_app, (error, results, fields) =>{
+        //if error pass to callback function
+        if (error){
+            next(error)
+        }
+        next(null, results)
+    })
 
+    return
+}
 // READ ALL
 function readUsers(next){
     // list all users from database
@@ -144,6 +158,7 @@ function User(firstName, lastName, email, isTeacher) {
 module.exports ={
     createUser, 
     readUsers,
+    readUsers_app,
     readUser,
     updateUser,
     deleteUser
