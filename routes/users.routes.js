@@ -54,6 +54,20 @@ router.post('/', (req, res, next) => {
     }
 })  
 
+//READ ALL -- APP
+router.get('/json-students', (req, res, next) => {
+    user_ctrl.readUsers_app((error, results)=>{
+        
+        if(error){
+            res.status(403).send(error)
+            console.log(error)
+            next(error)
+            return
+        }
+        res.status(200).json(results)
+    })
+})
+
 //READ ALL 
 router.get('/', (req, res, next) => {
     let userData;
