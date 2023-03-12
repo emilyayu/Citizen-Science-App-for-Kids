@@ -71,8 +71,6 @@ router.post('/', (req, res, next) => {
 
 //READ ALL 
 router.get('/', requiresAuth(), (req, res, next) => {
-    // userProfile = req.oidc.user
-    // console.log(userProfile)
     projects_ctrl.readProjects((error, results)=>{
         if(error){
             er = err.errorMessage(error.code)
@@ -95,7 +93,6 @@ router.get('/', requiresAuth(), (req, res, next) => {
 router.get('/accesscode/:accesscode', (req, res, next) => {
     projects_ctrl.readProjectsAccessCode(req, (error, results)=>{
         if(error){
-            // er = err.errorMessage(error.code)
             res.status(403).send(error.sqlMessage)
             next(error)
             return
@@ -103,10 +100,6 @@ router.get('/accesscode/:accesscode', (req, res, next) => {
         const userData = results
 
         res.status(200).json(userData)
-        // res.render('projects', {
-        //     title: 'Projects',
-        //     userData
-        // })
     })
 })
 
