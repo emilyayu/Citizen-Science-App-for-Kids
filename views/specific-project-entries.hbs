@@ -1,42 +1,82 @@
 <!-- project-update.hbs-->
 
-{{!-- Breadcrumb Navigation Bar --}}
-{{#each name}}
 <nav aria-label="breadcrumb">
-    <ul class="breadcrumb">
+    <ul class="breadcrumb m-2">
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{this.ProjectName}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ProjectName}}</li>
+        
     </ul>
 </nav>
-<h2>{{this.ProjectName}}</h2>
-{{/each}}
+<div class="container my-5">
+    <div class="d-flex flex-row m-3">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
+            <a href="/projects/{{ProjectsFK}}" class="btn btn-outline-dark">
+                <input type="radio" name="options" id="option1" autocomplete="off" style="display: none;">
+                Description
+            </a>
+            <label class="btn btn-outline-dark active">
+                <input type="radio" name="options" id="option2" autocomplete="off" style="display: none;" checked> Entries
+            </label>
+        </div>
 
-<table id="specific-project-table">
+    </div>
 
-    <thead>
-        <tr>
-            <th>Project ID</th>
-            <th>Project Name</th>
-            <th>Student ID</th>
-            <th>Student</th>
-            <th>Date</th>
-            <th>Project Image</th>
-            <th>(Latitude, Longitude)</th>
-        </tr>
-    </thead>
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-3 align-items-center rounded-3 border shadow-lg">
+        <div class="d-flex justify-content-between p-4">
+            <h1>Project Entries</h1>
 
-    <tbody>
-        {{#each data}}
-        <tr data-value={{this.IDProjectEntries}}>
-            <td>{{this.ProjectsFK}}</td>
-            <td>{{this.ProjectName}}</td>
-            <td>{{this.UsersFK}}</td>
-            <td>{{this.FirstName}} {{this.LastName}}</td>
-            <td>{{this.EntryDate}}</td>
-            <td>{{this.EntryImage}}</td>
-            <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+            <button class="btn btn-dark rounded-pill trash" id ="export">
+                Download CSV
+            </button>
+
+            <a href="/project-entries/form/{{ProjectsFK}}" class="btn btn-outline-dark btn-lg rounded-pill  p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-lg"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                </svg>
+                Create Entry </a>
+        </div>
+        <div class="d-flex p-3 mt-3">
+            <table class="table table-striped p-3" id="specific-project-table">
+                <thead>
+                    <tr>
+                        {{!-- <th scope="col">Project ID</th> --}}
+                        <th scope="col">Project Name</th>
+                        {{!-- <th scope="col">Student ID</th> --}}
+                        <th scope="col">Student</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Project Image</th>
+                        <th scope="col">(Latitude, Longitude)</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each data}}
+                    <tr data-value={{this.IDProjectEntries}} data-student="{{this.ProjectsFK}}"
+                        data-user="{{this.UserFK}}">
+                        {{!-- <td>{{this.ProjectsFK}}</td> --}}
+                        <td>{{this.ProjectName}}</td>
+                        {{!-- <td>{{this.UsersFK}}</td> --}}
+                        <td>{{this.FirstName}} {{this.LastName}}</td>
+                        <td>{{this.EntryDate}}</td>
+                        <td>{{this.EntryImage}}</td>
+                        <td>({{this.EntryLatLong.x}}, {{this.EntryLatLong.y}})</td>
+                        <td><a href="/project-entries/{{this.ProjectsFK}}/form/{{this.IDProjectEntries}}" type="button"><i class="fa fa-edit"></i></a></td>
+                        <td><button class="btn btn-dark rounded-pill trash" onclick="deleteEntriesJS({{this.IDProjectEntries}})"><i class="fa fa-trash-o"></i></button>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="\js\specific-project-entries.helper.js"></script>
+<script src="\js\table_to_csv.js"></script>
+

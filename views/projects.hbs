@@ -1,73 +1,5 @@
-{{!-- <!-- projects.hbs-->
+<!-- projects.hbs-->
 
-<title>Projects</title>
-
-<h1>Projects</h1>
-<p>
-  View, add, update or delete projects.
-</p>
-
-<!-- Add a new Student to the Database -->
-<form action="/projects" method="POST" id="add-project">
-
-  <fieldset class="fields">
-    
-    {{#if message}}
-    <div style="text-align: center" class="alert alert-{{message.type}}">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>{{message.intro}}</strong> {{message.message}}
-    </div>
-    {{/if}}
-
-    <legend><strong>Add Project</strong></legend>
-
-    <label for="ProjectName"> Project Name </label>
-    <input type="text" name="ProjectName" id="ProjectName" placeholder="Name">
-    <input type="hidden" name="ProjectType" value="Image & Geo">
-    <label> Project Description </label>
-    <textarea name="ProjectDescription" id="ProjectDescription" cols="30" rows="5"></textarea>
-    <input type="hidden" name="ProjectImage" value="blackberry.jpg">
-
-    <div>
-      <button>Submit</button>
-    </div>
-  </fieldset>
-
-</form>
-
-<div id="overviewUsers" style="display: block">
-  <table id="project-table">
-
-    <thead>
-      <tr>
-        <th>Project ID</th>
-        <th>Project Name</th>
-        <th>Project Type</th>
-        <th>Project Description</th>
-        <th>Data</th>
-        <th>Edit</th>
-        <th>Delete</th>
-
-      </tr>
-    </thead>
-
-    <tbody>
-      {{#each userData}}
-      <tr data-value={{this.IDProjects}}>
-        <td>{{this.IDProjects}}</td>
-        <td>{{this.ProjectName}}</td>
-        <td>{{this.ProjectType}}</td>
-        <td>{{this.ProjectDescription}}</td>
-        <td><a href="/project-entries/{{this.IDProjects}}" type="button"><i class="fa fa-table"></i></a></td>
-        <td><a href="/projects/{{this.IDProjects}}" type="button"><i class="fa fa-edit"></i></a></td>
-        <td><button class="trash" onclick="deleteProjectJS({{this.IDProjects}})"><i class="fa fa-trash-o"></i></button>
-        </td>
-
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div> --}}
 <div class="container-fluid">
   <div class="d-flex flex-row-reverse p-3">
     <a href="/projects/form" class="btn btn-outline-dark btn-lg rounded-pill px-4">
@@ -92,12 +24,16 @@
       <div class="card mx-2 my-3">
         <div class="d-flex flex-row-reverse px-2">
           <div class="p-2">
-              <button type="button" class="btn btn-lg p-0 round-circle delete-button" title="delete" style="color: #bbbbbb;" data-name="{{this.ProjectName}}" data-id="{{this.IDProjects}}">&#215;</button>
+              <button type="button" class="btn btn-lg p-0 round-circle delete-button" title="delete" data-name="{{this.ProjectName}}" data-id="{{this.IDProjects}}">
+                <i class="fa fa-trash" data-name="{{this.ProjectName}}" data-id="{{this.IDProjects}}" style=" color: #bbbbbb"></i>
+              </button>
           </div>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{this.ProjectName}}</h5>
           <p class="card-text">{{this.ProjectDescription}}</p>
+          <h6>Access Code: {{this.AccessCode}}</h6>
+          <p></p>
           <a href="/projects/{{this.IDProjects}}" class="btn btn-primary btn-dark rounded-pill">Project Details</a>
         </div>
       </div>

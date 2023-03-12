@@ -4,63 +4,35 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb m-2">
         <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Project Details</li>
+        {{#each userData}}
+        <li class="breadcrumb-item active" aria-current="page">{{this.ProjectName}}</li>
+        {{/each}}
     </ul>
 </nav>
-{{!-- 
-<h2>Edit Project</h2>
-<table id="project-table">
-
-    <thead>
-        <tr>
-            <th>Project ID</th>
-            <th>Project Name</th>
-            <th>Project Type</th>
-            <th>Project Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {{#each userData}}
-        <tr data-value={{this.IDProjects}}>
-            <td>{{this.IDProjects}}</td>
-            <td>{{this.ProjectName}}</td>
-            <td>{{this.ProjectType}}</td>
-            <td>{{this.ProjectDescription}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-
-{{#each userData}}
-<form id="edit-project" method="POST" action="/projects/{{this.IDProjects}}">
-
-    <fieldset class="fields">
-        <legend><strong>Add Project</strong></legend>
-
-        <label for="ProjectName"> Project Name </label>
-        <input type="text" name="ProjectName" id="ProjectName" placeholder="Name" value="{{this.ProjectName}}">
-        <input type="hidden" name="ProjectType" value="Image & Geo">
-        <label> Project Description </label>
-        <textarea name="ProjectDescription" id="ProjectDescription" cols="30"
-            rows="5">{{this.ProjectDescription}}</textarea>
-        <input type="hidden" name="ProjectImage" value="blackberry.jpg">
-
-        <div>
-            <button>Submit</button>
-        </div>
-    </fieldset>
-
-</form>
-{{/each}} --}}
 
 <div class="container my-5">
+    <div class="d-flex flex-row m-3">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-outline-dark active">
+                <input type="radio" name="options" id="option1" autocomplete="off" style="display: none;" checked>
+                Description
+            </label>
+            <a href="/project-entries/{{IDProjects}}"class="btn btn-outline-dark">
+                <input type="radio" name="options" id="option2" autocomplete="off" style="display: none;"> Entries
+            </a>
+        </div>
+
+    </div>
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-3 align-items-center rounded-3 border shadow-lg">
         {{#each userData}}
         <div class="d-flex justify-content-between">
             <h1 class="" data-id="{{this.ProjectID}}">{{this.ProjectName}}</h1>
-            <button class="btn btn-dark rounded-pill" id="editProjectBtn" >Edit</button>
-            <button class="btn btn-dark rounded-pill" id="updateProjectBtn" data-id="{{this.IDProjects}}" style="display: none;">Done</button>
+            <button class="btn btn-dark rounded-pill" id="editProjectBtn" >
+               <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+            </button>
+            <button class="btn btn-dark rounded-pill" id="updateProjectBtn" data-id="{{this.IDProjects}}" style="display: none;">
+                Done <i class="fa fa-close"></i>
+            </button>
         </div>
         <div class="row justify-content-left">
             <div class="col-md-5 mx-2 my-5">
@@ -71,6 +43,8 @@
                 </svg>
             </div>
             <div id="ProjectDash" class="col-md-6 my-5 ">
+                <h2 class="">Access Code </h2>
+                <p>{{this.AccessCode}}</p>
                 <h2 class="">Project Type</h2>
                 <p>{{this.ProjectType}}</p>
                 <h2 class="">Project Description</h2>
@@ -98,5 +72,5 @@
     {{/each}}
 </div>
 </div>
-
+  <script src="/js/validation.helpers.js"></script>
   <script src="/js/project-dash.helpers.js"></script>

@@ -91,6 +91,25 @@ router.get('/', requiresAuth(), (req, res, next) => {
     })
 })
 
+//READ PROJECT FROM ACCESS CODE 
+router.get('/accesscode/:accesscode', (req, res, next) => {
+    projects_ctrl.readProjectsAccessCode(req, (error, results)=>{
+        if(error){
+            // er = err.errorMessage(error.code)
+            res.status(403).send(error.sqlMessage)
+            next(error)
+            return
+        }
+        const userData = results
+
+        res.status(200).json(userData)
+        // res.render('projects', {
+        //     title: 'Projects',
+        //     userData
+        // })
+    })
+})
+
 //READ ONE
 router.get('/:id', (req, res, next) => {
     projects_ctrl.readProject(req, (error, results)=>{
@@ -105,7 +124,8 @@ router.get('/:id', (req, res, next) => {
         res.render('project-dash', {
             title: 'Projects',
             userData,
-            userProfile: req.oidc.user
+            userProfile: req.oidc.user,
+            IDProjects: userData[0].IDProjects
         })
     })
 })

@@ -1,6 +1,60 @@
 
 
 
+// Source: Email Validation regex example
+// https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+
+//Submit user Event
+const addBtn = document.getElementById('addStudentBtn')
+addBtn.addEventListener("click", () => {
+
+  //package data for request
+  const user_values = ['FirstName', 'LastName', 'Email', 'IsTeacher']
+  const user_data = generateDataObj(user_values)
+
+  //data validation
+  if(!validateFormData(user_data)){
+    return
+  }
+
+  sendPost(user_data)
+
+});
+
+//listens for user input, if user adds input hide error message
+const firstNameInput = document.getElementById('FirstName')
+firstNameInput.addEventListener("input", (event) => {
+  hideInputError(event.target)
+
+});
+
+//listens for user input, if user adds input hide error message
+const lastNameInput = document.getElementById('LastName')
+lastNameInput.addEventListener("input", (event) => {
+  hideInputError(event.target)
+
+});
+
+const emailInput = document.getElementById('Email')
+emailInput.addEventListener("input", (event) => {
+  hideInputError(event.target)
+
+});
+
+
+//send http post request with data to the server
+function sendPost(data){
+  $.ajax({
+    url: '/users',
+    type: 'POST',
+    data: JSON.stringify(data),
+    contentType: "application/json; charset=utf-8", 
+    success: function() {
+      window.location.reload();
+    }
+  });
+}
+
 function deleteUserJS(IDUser) {
     let link = '/users/'+IDUser;
     let data = {
@@ -32,3 +86,4 @@ function deleteRow(IDUser){
     }
 
 }
+

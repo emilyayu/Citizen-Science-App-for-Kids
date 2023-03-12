@@ -33,7 +33,6 @@ process.on('uncaughtException', function(err) {
 
 //CREATE
 router.post('/', (req, res, next) => {
-
     // blocking window pop up for missing fields
     if (req.body.FirstName === "" || req.body.LastName === "" || req.body.Email === ""){
         req.session.message = {
@@ -56,6 +55,20 @@ router.post('/', (req, res, next) => {
         })
     }
 })  
+
+//READ ALL -- APP
+router.get('/json-students', (req, res, next) => {
+    user_ctrl.readUsers_app((error, results)=>{
+        
+        if(error){
+            res.status(403).send(error)
+            console.log(error)
+            next(error)
+            return
+        }
+        res.status(200).json(results)
+    })
+})
 
 //READ ALL 
 router.get('/', requiresAuth(), (req, res, next) => {
@@ -103,7 +116,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 //UPDATE
-router.post('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
     user_ctrl.updateUser(req, (error, results)=>{
         if(error){
             res.status(403).send(error.sqlMessage)
@@ -112,7 +125,7 @@ router.post('/:id', (req, res, next) => {
             res.redirect('/users')
         }
         res.status(200)
-        res.redirect("/users")
+        // res.redirect("/users")
     })
 })
 

@@ -29,40 +29,6 @@ projectDescInput.addEventListener("input", (event) => {
 
 });
 
-//generate js object with values from the form
-function generateDataObj(values){
-  let project = {}
-  values.forEach(element => {
-    project[element] = document.getElementById(element).value
-  })
-
-  return project
-}
-
-//check for empty values in object properties
-function validateFormData(data){
-  let isValid = true
-
-  for(const property in data){
-    if(data[property] == ''){
-      showInputError(property)
-      isValid = false
-    }
-  }
-
-  return isValid
-}
-
-function showInputError(property){
-  const err_message = document.getElementById(property).nextElementSibling
-  err_message.style.display = ''
-
-}
-
-function hideInputError(property){
-  const err_message = property.nextElementSibling
-  err_message.style.display = 'none'
-}
 
 //send http post request with data to the server
 function sendPost(data){
