@@ -72,7 +72,7 @@ router.get('/', (req, res, next) => {
 })
 
 //READ PROJECT FROM ACCESS CODE 
-router.get('//accesscode/:accesscode', (req, res, next) => {
+router.get('/accesscode/:accesscode', (req, res, next) => {
     projects_ctrl.readProjectsAccessCode(req, (error, results)=>{
         if(error){
             // er = err.errorMessage(error.code)
@@ -82,11 +82,11 @@ router.get('//accesscode/:accesscode', (req, res, next) => {
         }
         const userData = results
 
-        res.status(200)
-        res.render('projects', {
-            title: 'Projects',
-            userData
-        })
+        res.status(200).json(userData)
+        // res.render('projects', {
+        //     title: 'Projects',
+        //     userData
+        // })
     })
 })
 
