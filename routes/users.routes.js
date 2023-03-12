@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser')
 const err = require('../error_helper')
 const user_ctrl = require('../controllers/users.controllers')
 
+const { requiresAuth } = require('express-openid-connect')
+
 router.use(bodyParser.urlencoded({extended: false}))
 router.use(bodyParser.json())
 router.use(session({
@@ -69,7 +71,7 @@ router.get('/json-students', (req, res, next) => {
 })
 
 //READ ALL 
-router.get('/', (req, res, next) => {
+router.get('/', requiresAuth(), (req, res, next) => {
     let userData;
     user_ctrl.readUsers((error, results)=>{
         
@@ -82,7 +84,8 @@ router.get('/', (req, res, next) => {
         userData = results
         res.render('users', {
             title: 'Users',
-            userData
+            userData,
+            userProfile: req.oidc.user
         })
     })
     res.status(200)
@@ -105,7 +108,8 @@ router.get('/:id', (req, res, next) => {
 
         res.render('user-update', {
             title: 'Users',
-            userData
+            userData,
+            userProfile: req.oidc.user
         })
     res.status(200)
     })

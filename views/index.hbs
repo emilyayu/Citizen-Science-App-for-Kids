@@ -6,7 +6,11 @@
         <h1 class="display-4 fw-bold lh-1">Get out of your classroom and explore. </h1>
         <p class="lead">Easily design community based science projects for students. Explore the outdoors and collect field data using our mobile application. Visualize and download project data for analysis.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Sign-up</button>
+          {{#if userProfile}}
+            <a href="/projects" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">View My Projects</a>
+          {{else}}
+            <a href="/login" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Sign-up</a>
+          {{/if}}
         </div>
       </div>
       <div class="col-lg-4 offset-lg-1 pb-3 overflow-hidden ">
