@@ -38,7 +38,6 @@ app.use('/login', login)
 app.get('/', (req, res) => {
   logged_in = req.oidc.isAuthenticated() ? true : false
   app.locals.user = req.oidc.user
-  console.log(req.oidc.user)
   res.render('index', {
     userProfile: app.locals.user
   });
