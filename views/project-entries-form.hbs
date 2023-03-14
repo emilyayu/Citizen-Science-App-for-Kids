@@ -19,7 +19,7 @@
                     <label class="form-label mt-4" for="ProjectDescription"> Student </label>
                     <select id="UsersFK" class="form-select" aria-label="Default select example">
                         <option selected value=""> Select a student</option>
-                        {{#each userData}}
+                        {{#each students}}
                             <option value="{{this.IDUser}}">{{this.FirstName}} {{this.LastName}}</option>
                         {{/each}}
                     </select>
