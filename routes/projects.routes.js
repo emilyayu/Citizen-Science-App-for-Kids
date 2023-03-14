@@ -10,6 +10,13 @@ const err = require('../error_helper')
 const projects_ctrl = require('../controllers/projects.controllers')
 const auth0continue = 'https://dev-kim7y4zkcaxzxlmr.us.auth0.com/continue?state='
 
+const { format } = require('util')
+const { Storage } = require('@google-cloud/storage')
+var config = require('../config')
+
+const storage = new Storage({keyFilename: config.storage})
+const bucket = storage.bucket("project-image-bucket")
+
 const { requiresAuth } = require('express-openid-connect')
 // const app = express
 // const { auth } = require('express-openid-connect')
