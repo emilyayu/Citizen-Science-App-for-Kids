@@ -1,5 +1,7 @@
 
 const moment = require('moment')
+const util = require('util');
+const Multer = require('multer')
 
 //**FOR ADDING GCLOUD STORAGE */
 //https://cloud.google.com/appengine/docs/flexible/using-cloud-storage?tab=node.js
@@ -23,6 +25,11 @@ function getAccessCode(){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+let processFile = Multer({
+    storage: Multer.memoryStorage()
+}).single("file")
+
+let processFileMiddleware = util.promisify(processFile);
 
 //Uses request body & file to generate a list of values for create entries pool query
 function getProjectEntryValues(req){
@@ -112,5 +119,6 @@ module.exports =
     getUTCDateTime,
     getPublicUrl,
     ValidateEmail,
-    IsString
+    IsString,
+    processFileMiddleware
 }

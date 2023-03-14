@@ -20,10 +20,12 @@
                     <textarea class="form-control" id="ProjectDescription" rows="3" >Enter a description</textarea>
                     <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project description.</div>
 
-                    <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg"/>
+                    {{!-- <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg"/> --}}
+                    <label class="form-label" for="ProjectImage" >Upload Image &#40;PNG, JPG&#41;</label>
+                    <input class="form-control form-control-md mt-1" id="ProjectImage" type="file" accept=".jpg,.png">
+
                     <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addProjectBtn" >Submit</a>
-                    {{!-- <label class="form-label" for="ProjectImage" >Upload Image &#40;PNG, JPG&#41;</label>
-                    <input class="form-control form-control-md mt-1" type="file" accept=".jpg,.png"> --}}
+                   
                 </div>
             </div>
         </div>
