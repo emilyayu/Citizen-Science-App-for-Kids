@@ -35,7 +35,7 @@ router.get('/form/:id', (req, res, next) => {
             next(error)
             return
         }
-
+        
         res.render('project-entries-form',
             {   IDProjects: req.params.id,
                 students, 
@@ -97,7 +97,7 @@ router.post('/:project_id/form/:project_entry', multer.single('EntryImage'), (re
 
 //CREATE
 router.post('/', multer.single('EntryImage'), (req, res, next) => {
-    
+
     project_ent_ctrl.createProjectEntry(req, (error, results)=>{
         if (!req.file) {
             res.status(400).send('No file uploaded.');
@@ -137,7 +137,7 @@ router.get('/', (req, res, next) => {
 
 })
 
-//READ ONE PROJECT'S ENTRIES
+// //READ ONE PROJECT'S ENTRIES
 router.get('/:project_id', (req, res, next) => {
 
     project_ent_ctrl.readProjectEntries(req, (error, project_entries, project_name, student)=>{
@@ -162,6 +162,23 @@ router.get('/:project_id', (req, res, next) => {
                 ProjectName: name[0].ProjectName
             })
         res.status(200)
+    })
+})
+
+//READ ONE PROJECT'S ENTRIES - JSON
+router.get('/entries/:project_id', (req, res, next) => {
+
+    project_ent_ctrl.readProjectEntries(req, (error, project_entries, project_name, student)=>{
+
+        if(error){
+            res.status(400).send('get one project entry error')
+            console.log(error)
+            next(error)
+            return
+        }
+        
+        const data = project_entries
+        res.status(200).json(project_entries)
     })
 })
 
