@@ -57,8 +57,7 @@ function getStudents(req, next){
 function createProjectEntry(req, next){
     //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
     const project_entry = helper.getProjectEntryValues(req)
-    // console.log("Line37", project_entry)
-    // insert new ProjectEntry into database
+     // insert new ProjectEntry into database
     pool.query(create_project_entry, project_entry, (error, results, fields) =>{
         //if error pass to callback function
         if (error){

@@ -62,10 +62,22 @@ router.get('/json-students', (req, res, next) => {
         
         if(error){
             res.status(403).send(error)
-            console.log(error)
             next(error)
             return
         }
+        res.status(200).json(results)
+    })
+})
+
+//READ USERS FROM ID, JSON RETURN 
+router.get('/json-students/:id', (req, res, next) => {
+    user_ctrl.readUser(req, (error, results)=>{
+        if(error){
+            res.status(403).send(error.sqlMessage)
+            next(error)
+            return
+        }
+
         res.status(200).json(results)
     })
 })

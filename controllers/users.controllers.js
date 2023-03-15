@@ -9,8 +9,7 @@ const helper = require("../helper")
 // Note: some places in the documentation use ` around table names -- may need to add this
 const create_user = 'INSERT INTO Users (FirstName, LastName, Email, IsTeacher) VALUES (?, ?, ?, ?)'
 const read_users = 'SELECT * FROM Users'
-const read_users_app = 'SELECT IDUser, FirstName, LastName FROM Users'
-
+const read_users_app = 'SELECT * FROM Users'
 const read_user = 'SELECT * FROM Users WHERE IDUser = ?'
 const update_user = 'UPDATE Users SET FirstName = ?, LastName = ?, Email = ?, IsTeacher = ? WHERE IDUser = ?'
 const delete_user = 'DELETE FROM Users WHERE IDUser = ?'
