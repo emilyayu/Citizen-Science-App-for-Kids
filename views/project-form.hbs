@@ -10,22 +10,23 @@
             <h3>Create a project.</h3>
             <div class="card " style="background-color: #f5f5f5; border: none;">
                 <div class="card-body">
-                    <label class="form-label mt-4" for="ProjectName"> Name </label>
-                    <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name"/>
-                    <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
+                    {{!-- <form action="/projects" method="POST" enctype="multipart/form"> --}}
+                        <label class="form-label mt-4" for="ProjectName"> Name </label>
+                        <input type="text" class="form-control" id="ProjectName" placeholder="Enter a Project Name"/>
+                        <div id="project-name-err" style="color: red; display: none;">Please provide a valid project name.</div>
 
-                    <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation"/>
+                        <input type="hidden" name="ProjectType" id="ProjectType" value="Image & Geolocation"/>
 
-                    <label class="form-label mt-4" for="ProjectDescription"> Description</label>
-                    <textarea class="form-control" id="ProjectDescription" rows="3" >Enter a description</textarea>
-                    <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project description.</div>
+                        <label class="form-label mt-4" for="ProjectDescription"> Description</label>
+                        <textarea class="form-control" id="ProjectDescription" rows="3" >Enter a description</textarea>
+                        <div id="project-descripton-err" style="color: red; display: none;">Please provide a valid project description.</div>
 
-                    {{!-- <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg"/> --}}
-                    <label class="form-label" for="ProjectImage" >Upload Image &#40;PNG, JPG&#41;</label>
-                    <input class="form-control form-control-md mt-1" id="ProjectImage" type="file" accept=".jpg,.png">
+                        {{!-- <input type="hidden" name="ProjectImage" id="ProjectImage" value="placehoder.jpg"/> --}}
+                        <label class="form-label" for="ProjectImage" >Upload Image &#40;PNG, JPG&#41;</label>
+                        <input class="form-control form-control-md mt-1" id="ProjectImage" type="file" accept=".jpg,.png">
 
-                    <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addProjectBtn" >Submit</a>
-                   
+                        <button class="btn btn-md btn-dark rounded-pill mt-4 px-5" id="addProjectBtn" >Submit</a>
+                    {{!-- </form> --}}
                 </div>
             </div>
         </div>

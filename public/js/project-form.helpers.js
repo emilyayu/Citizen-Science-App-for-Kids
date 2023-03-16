@@ -6,7 +6,7 @@ addBtn.addEventListener("click", () => {
   //package data for request
   const project_values = ['ProjectName', 'ProjectType', 'ProjectDescription', 'ProjectImage']
   const project_data = generateDataObj(project_values)
-  
+  console.log(project_data)
   //data validation
   if(!validateFormData(project_data)){
     return

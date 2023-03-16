@@ -2,8 +2,8 @@
 //https://github.com/mysqljs/mysql
 
 const pool = require("../connection");
-const helper = require('../helper')
-const err = require('../error_helper')
+const helper = require('../middleware/helper')
+const err = require('../middleware/error_helper')
 const { format } = require('util')
 const { Storage } = require('@google-cloud/storage')
 var config = require('../config')
@@ -46,6 +46,7 @@ function createProject(req, next){
     //ADD IMAGE with HELPER sending image to google storage
     //call helper function to store image, add image url 
     //or storage access added to the project object!
+
 
     // insert new project into database
     pool.query(create_project, project, (error, results, fields) =>{

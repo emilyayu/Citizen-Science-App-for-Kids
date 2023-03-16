@@ -6,16 +6,17 @@ const session = require('express-session')
 //create js object from JSON request body
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const err = require('../error_helper')
+const err = require('../middleware/error_helper')
 const projects_ctrl = require('../controllers/projects.controllers')
-const auth0continue = 'https://dev-kim7y4zkcaxzxlmr.us.auth0.com/continue?state='
+const file_ctrl = require('../controllers/file.contoller')
+// const auth0continue = 'https://dev-kim7y4zkcaxzxlmr.us.auth0.com/continue?state='
 
-const { format } = require('util')
-const { Storage } = require('@google-cloud/storage')
-var config = require('../config')
+// const { format } = require('util')
+// const { Storage } = require('@google-cloud/storage')
+// var config = require('../config')
 
-const storage = new Storage({keyFilename: config.storage})
-const bucket = storage.bucket("project-image-bucket")
+// const storage = new Storage({keyFilename: config.storage})
+// const bucket = storage.bucket("project-image-bucket")
 
 const { requiresAuth } = require('express-openid-connect')
 // const app = express
@@ -54,7 +55,7 @@ router.use((req, res, next) => {
 
 //CREATE
 router.post('/', (req, res, next) => {
-
+    console.log("234", req.body)
     if (req.body.ProjectName === "" || req.body.ProjectType === "" || req.body.ProjectDescription === "") {
         req.session.message = {
             type: 'danger',
@@ -63,6 +64,15 @@ router.post('/', (req, res, next) => {
         }
         res.redirect('/projects')
     } else {
+        file_ctrl.upload(req, (error, results) => {
+            if(error){
+                res.status(403).send(error)
+                next(error)
+                res.redirect('/projects')
+            }
+            res.status(201)
+            res.redirect('/projects')
+        })
         projects_ctrl.createProject(req, (error, results)=>{
             if(error){
                 er = err.errorMessage(error.code)

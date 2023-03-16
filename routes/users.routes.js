@@ -6,7 +6,7 @@ const router = express.Router()
 //create js object from JSON request body
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const err = require('../error_helper')
+const err = require('../middleware/error_helper')
 const user_ctrl = require('../controllers/users.controllers')
 
 const { requiresAuth } = require('express-openid-connect')

@@ -2,8 +2,8 @@
 //https://github.com/mysqljs/mysql
 
 const pool = require("../connection");
-const err = require("../error_helper")
-const helper = require("../helper")
+const err = require("../middleware/error_helper")
+const helper = require("../middleware/helper")
 
 //USER QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this

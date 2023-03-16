@@ -5,7 +5,7 @@
 
 const pool = require("../connection");
 
-const helper = require('../helper')
+const helper = require('../middleware/helper')
 
 //Project QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
