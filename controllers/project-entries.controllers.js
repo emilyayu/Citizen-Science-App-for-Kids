@@ -55,6 +55,7 @@ function getStudents(req, next){
 
 // CREATE
 function createProjectEntry(req, next){
+
     //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
     const project_entry = helper.getProjectEntryValues(req)
     // console.log("Line37", project_entry)
@@ -69,6 +70,44 @@ function createProjectEntry(req, next){
 
     return
 }
+// CREATE - app
+function createProjectEntryAPP(req, next){
+    console.log("Contorller", req)
+        //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
+        // const project_entryAPP = helper.getProjectEntryValues(req)
+        // insert new ProjectEntry into database
+        pool.query(create_project_entry, req, (error, results, fields) =>{
+            //if error pass to callback function
+            if (error){
+                next(error)
+            }
+            next(null, results)
+        })
+    
+        return
+    }
+    
+    // entry_date = req.EntryDate
+    // entry_image = req.EntryImage
+    // entry_latlong = req.EntryLatLong
+    // entry_projectsfk = req.ProjectsFK
+    // entry_usersfk = req.UsersFK
+    // console.log(entry_date, entry_image, entry_latlong, entry_projectsfk, entry_usersfk)
+    // const create_project_entry = 'INSERT INTO ProjectEntries (EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK) VALUES (?, ?, ST_GeomFromText(?, 4326), ?, ?)'
+    //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
+    // const project_entry = helper.getProjectEntryValues(req)
+    // console.log("Line37", project_entry)
+    // insert new ProjectEntry into database
+    // pool.query(create_project_entry, entry_date, entry_image, entry_latlong,entry_projectsfk, entry_usersfk, (error, results, fields) =>{
+        //if error pass to callback function
+//         if (error){
+//             next(error)
+//         }
+//         next(null, results)
+//     })
+
+//     return
+// }
 
 
 // READ ALL ENTRIES
@@ -178,6 +217,8 @@ function deleteProjectEntry(req, next){
 module.exports ={
     getStudents,
     createProjectEntry, 
+    createProjectEntryAPP, 
+
     readAllProjectEntries,
     readProjectEntries,
     readEntry,
