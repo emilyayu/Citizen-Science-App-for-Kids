@@ -55,6 +55,7 @@ function getStudents(req, next){
 
 // CREATE
 function createProjectEntry(req, next){
+
     //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
     const project_entry = helper.getProjectEntryValues(req)
      // insert new ProjectEntry into database
@@ -68,8 +69,22 @@ function createProjectEntry(req, next){
 
     return
 }
+// CREATE - app
+function createProjectEntryAPP(req, next){
 
+    const project_entry = req
 
+        pool.query(create_project_entry, project_entry, (error, results, fields) =>{
+            //if error pass to callback function
+            if (error){
+                next(error)
+            }
+            next(null, results)
+        })
+    
+        return
+    }
+    
 // READ ALL ENTRIES
 function readAllProjectEntries(next){
     // list all projects from database
@@ -177,6 +192,8 @@ function deleteProjectEntry(req, next){
 module.exports ={
     getStudents,
     createProjectEntry, 
+    createProjectEntryAPP, 
+
     readAllProjectEntries,
     readProjectEntries,
     readEntry,
