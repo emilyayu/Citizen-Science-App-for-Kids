@@ -21,6 +21,7 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.json())
 
 const project_ent_ctrl= require('../controllers/project-entries.controllers')
+const helper = require('../helper')
 
 
 
@@ -97,7 +98,6 @@ router.post('/:project_id/form/:project_entry', multer.single('EntryImage'), (re
 
 //CREATE
 router.post('/', multer.single('EntryImage'), (req, res, next) => {
-    console.log(req.body)
     
     project_ent_ctrl.createProjectEntry(req, (error, results)=>{
         if (!req.file) {
@@ -117,25 +117,41 @@ router.post('/', multer.single('EntryImage'), (req, res, next) => {
 })
 
 //CREATE Project-entries for app
-
 router.post('/app', multer.single('EntryImage'), (req, res, next) => {
-    const project_values = {EntryDate: req.body.EntryDate, EntryImage: multer.single('EntryImage'), EntryLatLong: req.body.EntryLatLong,ProjectsFK: req.body.ProjectsFK, UsersFK: req.body.UsersFK}
-    // console.log("LINE123", project_values.EntryDate)
-   
-    project_ent_ctrl.createProjectEntryAPP(project_values, (error, results)=>{
+    // console.log("ROUTES", req.body)
+    // console.log(helper.getUTCDateTime())
+    // console.log('www.gcloud-bucket.' +"test")
+    // console.log(req.body.EntryLatLong)
+    // console.log(parseInt(req.body.ProjectsFK))
+    // console.log(parseInt(req.body.UsersFK))
+    const project_entry = {
+        EntryDate: helper.getUTCDateTime(),
+        EntryImage: 'www.gcloud-bucket.' +"test",
+        EntryLatLong: req.body.EntryLatLong,
+        ProjectsFK: parseInt(req.body.ProjectsFK),
+        UsersFK: parseInt(req.body.UsersFK) //DUMMY VALUE getUserId(onid)
+    }
+    // const project_values = {'EntryDate': req.body.EntryDate,"EntryImage":multer.single(req.body.EntryImage), 
+    //     "EntryLatLong":req.body.EntryLatLong, "ProjetsFK": req.body.ProjectsFK, "UsersFK":req.body.UsersFK}
+    console.log("LINE123", project_entry)
+    
+    project_ent_ctrl.createProjectEntryAPP(Object.values(project_entry), (error, results)=>{
         if (!req.file) {
             res.status(400).send('No file uploaded.');
             return;
         }
+
         if(error){
             res.status(400).send('create project entry error')
             console.log(error)
             next(error)
             return
         }
-        console.log("LINE137", results)
-        res.status(201)
     })
+    res.status(201)
+    console.log("SUCCESS")
+
+
 })
 
 

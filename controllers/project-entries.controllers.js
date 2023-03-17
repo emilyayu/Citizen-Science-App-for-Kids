@@ -72,11 +72,10 @@ function createProjectEntry(req, next){
 }
 // CREATE - app
 function createProjectEntryAPP(req, next){
-    console.log("Contorller", req)
-        //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
-        // const project_entryAPP = helper.getProjectEntryValues(req)
-        // insert new ProjectEntry into database
-        pool.query(create_project_entry, req, (error, results, fields) =>{
+
+    const project_entry = req
+
+        pool.query(create_project_entry, project_entry, (error, results, fields) =>{
             //if error pass to callback function
             if (error){
                 next(error)
@@ -87,29 +86,6 @@ function createProjectEntryAPP(req, next){
         return
     }
     
-    // entry_date = req.EntryDate
-    // entry_image = req.EntryImage
-    // entry_latlong = req.EntryLatLong
-    // entry_projectsfk = req.ProjectsFK
-    // entry_usersfk = req.UsersFK
-    // console.log(entry_date, entry_image, entry_latlong, entry_projectsfk, entry_usersfk)
-    // const create_project_entry = 'INSERT INTO ProjectEntries (EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK) VALUES (?, ?, ST_GeomFromText(?, 4326), ?, ?)'
-    //generate list of values for query [EntryDate, EntryImage, EntryLatLong, ProjectsFK, UsersFK]
-    // const project_entry = helper.getProjectEntryValues(req)
-    // console.log("Line37", project_entry)
-    // insert new ProjectEntry into database
-    // pool.query(create_project_entry, entry_date, entry_image, entry_latlong,entry_projectsfk, entry_usersfk, (error, results, fields) =>{
-        //if error pass to callback function
-//         if (error){
-//             next(error)
-//         }
-//         next(null, results)
-//     })
-
-//     return
-// }
-
-
 // READ ALL ENTRIES
 function readAllProjectEntries(next){
     // list all projects from database
