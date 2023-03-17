@@ -2,8 +2,14 @@
 //https://github.com/mysqljs/mysql
 
 const pool = require("../connection");
-const helper = require('../helper')
-const err = require('../error_helper')
+const helper = require('../middleware/helper')
+const err = require('../middleware/error_helper')
+const { format } = require('util')
+const { Storage } = require('@google-cloud/storage')
+var config = require('../config')
+
+const storage = new Storage({keyFilename: config.storage})
+const bucket = storage.bucket("project-image-bucket")
 
 //Project QUERIES
 // Note: some places in the documentation use ` around table names -- may need to add this
@@ -40,6 +46,7 @@ function createProject(req, next){
     //ADD IMAGE with HELPER sending image to google storage
     //call helper function to store image, add image url 
     //or storage access added to the project object!
+
 
     // insert new project into database
     pool.query(create_project, project, (error, results, fields) =>{
@@ -135,6 +142,88 @@ function deleteProject(req, next){
     return
 }
 
+const upload = async (req, res) => {
+    try {
+        await processFileMiddleware(req, res);
+
+        if(!req.file) {
+            return res.status(400).send({message: "Please Upload a file"})
+        }
+
+        const blob = bucket.file(req.file.originalname)
+        const blobStream = blob.createWriteStream({
+            resumable: false,
+        })
+
+        blobStream.on("error", (err) => {
+            res.status(500).send({ message: err.message })
+        })
+
+        blobStream.on("finish", async (data) => {
+            // Create URL for directly file access via HTTP.
+            const publicUrl = format(
+              `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+            );
+      
+            try {
+              // Make the file public
+              await bucket.file(req.file.originalname).makePublic();
+            } catch {
+              return res.status(500).send({
+                message:
+                  `Uploaded the file successfully: ${req.file.originalname}, but public access is denied!`,
+                url: publicUrl,
+              });
+            }
+      
+            res.status(200).send({
+              message: "Uploaded the file successfully: " + req.file.originalname,
+              url: publicUrl,
+            });
+          });
+      
+          blobStream.end(req.file.buffer);
+        } catch (err) {
+          res.status(500).send({
+            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        });
+    }
+};
+
+const getListFiles = async (req, res) => {
+    try {
+        const [files] = await bucket.getFiles();
+        let fileInfos = [];
+    
+        files.forEach((file) => {
+          fileInfos.push({
+            name: file.name,
+            url: file.metadata.mediaLink,
+          });
+        });
+    
+        res.status(200).send(fileInfos);
+      } catch (err) {
+        console.log(err);
+    
+        res.status(500).send({
+          message: "Unable to read list of files!",
+        });
+      }
+};
+
+const download = async (req, res) => {
+    try {
+        const [metaData] = await bucket.file(req.params.name).getMetadata();
+        res.redirect(metaData.mediaLink);
+        
+      } catch (err) {
+        res.status(500).send({
+          message: "Could not download the file. " + err,
+        });
+      }
+};
+
 //EXPORT FUNCTIONS
 module.exports ={
     createProject, 
@@ -142,5 +231,8 @@ module.exports ={
     readProject,
     updateProject,
     deleteProject,
-    readProjectsAccessCode
+    readProjectsAccessCode,
+    upload,
+    getListFiles,
+    download
 }

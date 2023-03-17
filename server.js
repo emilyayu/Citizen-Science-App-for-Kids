@@ -7,7 +7,11 @@ const index = require('./routes/index.routes')
 const users = require('./routes/users.routes')
 const projects = require('./routes/projects.routes')
 const projectEntries= require('./routes/project-entries.routes')
-// const login = require('./routes/login.routes')
+
+const cors = require('cors')
+let corsOptions = {
+  origin: "http://localhost:3000"
+}
 
 const { auth } = require('express-openid-connect')
 
@@ -33,6 +37,7 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/login', login)
+app.use(cors(corsOptions))
 
 // Home Page 
 app.get('/', (req, res) => {
